@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PassionBakeryNChocos - Special Order</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Diphylleia&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* CSS Variables */
+      :root {
+        --primary-gradient: linear-gradient(
+          90deg,
+          rgba(186, 208, 18, 0.95) 0%,
+          rgba(197, 214, 20, 0.95) 100%
+        );
+        --section-gradient: linear-gradient(
+          135deg,
+          #8c4b29 0%,
+          #7a3f22 50%,
+          #54422b 100%
+        );
+        --button-gradient: linear-gradient(45deg, #11124a, #1a1a5e);
+        --hover-gradient: linear-gradient(45deg, #fea3aa, #ff8a95);
+        --gold: #ffd700;
+        --primary-text: #11124a;
+        --white: #ffffff;
+        --primary-bg: #bad012;
+        --brown-primary: #8c4b29;
+        --brown-dark: #54422b;
+        --brown-footer: #2c1810;
+        --peach: #ffdab9;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --border-radius: 20px;
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--primary-bg);
+        overflow-x: hidden;
+        line-height: 1.6;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        max-width: 100vw;
+      }
+
+      /* Navigation Bar */
+      .topnav {
+        overflow: hidden;
+        background: var(--primary-gradient);
+        font-family: Delius;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .topnav a,
+      .topnav .cart-icon {
+        float: left;
+        display: block;
+        color: var(--primary-text);
+        text-align: center;
+        padding: 16px 24px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        border-radius: 12px;
+        margin: 8px 6px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .topnav a:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: var(--transition);
+      }
+
+      .topnav a:hover:before {
+        left: 100%;
+      }
+
+      .topnav a:hover,
+      .topnav .cart-icon:hover {
+        background: var(--brown-footer);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(44, 24, 16, 0.3);
+      }
+
+      .topnav .cart-icon:hover {
+        transform: translateY(-2px) rotate(5deg);
+      }
+
+      .topnav a.active {
+        background: linear-gradient(45deg, #008000, #006400);
+        color: white;
+        box-shadow: 0 4px 15px rgba(0, 128, 0, 0.3);
+        transform: scale(1.05);
+      }
+
+      .topnav .icon {
+        display: none;
+      }
+
+      /* Border Images */
+      .border-image {
+        width: min(70%, 600px);
+        height: auto;
+        margin: 20px auto;
+        display: block;
+        animation: imageFloat 6s ease-in-out infinite;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) brightness(1.1)
+          contrast(1.1);
+      }
+
+      @keyframes imageFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Form Container */
+      .container {
+        max-width: 700px;
+        width: 90%;
+        padding: clamp(30px, 5vw, 50px);
+        margin: 40px auto;
+        background: var(--section-gradient);
+        color: floralwhite;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(140, 75, 41, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold), #ffa500, var(--gold));
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      /* Form Title */
+      h2 {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        text-align: center;
+        margin-bottom: 30px;
+        font-family: Delius;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+          0 0 30px rgba(255, 215, 0, 0.4);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+        position: relative;
+        padding-bottom: 20px;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        border-radius: 2px;
+      }
+
+      @keyframes titleGlow {
+        from {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        to {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 215, 0, 0.6);
+        }
+      }
+
+      /* Form Elements */
+      .form-group {
+        margin-bottom: 25px;
+        position: relative;
+        animation: fadeInUp 0.6s ease-out backwards;
+      }
+
+      .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .form-group:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .form-group:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .form-group:nth-child(4) {
+        animation-delay: 0.25s;
+      }
+      .form-group:nth-child(5) {
+        animation-delay: 0.3s;
+      }
+      .form-group:nth-child(6) {
+        animation-delay: 0.35s;
+      }
+      .form-group:nth-child(7) {
+        animation-delay: 0.4s;
+      }
+      .form-group:nth-child(8) {
+        animation-delay: 0.45s;
+      }
+      .form-group:nth-child(9) {
+        animation-delay: 0.5s;
+      }
+      .form-group:nth-child(10) {
+        animation-delay: 0.55s;
+      }
+      .form-group:nth-child(11) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-family: Delius;
+        color: white;
+        font-size: clamp(0.95rem, 2vw, 1.05rem);
+        letter-spacing: 0.3px;
+      }
+
+      label::before {
+        content: "◆";
+        color: var(--gold);
+        font-size: 0.8em;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Input Styles */
+      input[type="text"],
+      input[type="tel"],
+      input[type="number"],
+      input[type="date"],
+      input[type="time"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        box-sizing: border-box;
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--primary-text);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      input[type="text"]:focus,
+      input[type="tel"]:focus,
+      input[type="number"]:focus,
+      input[type="date"]:focus,
+      input[type="time"]:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        background: white;
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3),
+          0 0 0 4px rgba(255, 215, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      input[type="text"]::placeholder,
+      input[type="tel"]::placeholder,
+      input[type="number"]::placeholder,
+      textarea::placeholder {
+        color: rgba(17, 18, 74, 0.5);
+        font-style: italic;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+        line-height: 1.6;
+      }
+
+      /* Select Dropdown */
+      select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23FFD700' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        padding-right: 45px;
+        font-weight: 500;
+        background-color: rgba(255, 255, 255, 0.95);
+      }
+
+      select:hover {
+        border-color: var(--gold);
+        background-color: white;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+      }
+
+      select option {
+        padding: 12px;
+        background: white;
+        color: var(--primary-text);
+        font-weight: 500;
+      }
+
+      select option:disabled {
+        color: #999;
+        font-style: italic;
+      }
+
+      /* Small helper text */
+      small {
+        display: block;
+        margin-top: 5px;
+        color: var(--peach);
+        font-size: 0.85rem;
+        font-style: italic;
+      }
+
+      /* Time Input Container */
+      .time-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .time-input-wrapper input[type="time"] {
+        flex: 1;
+      }
+
+      .time-input-wrapper small {
+        margin: 0;
+        white-space: nowrap;
+      }
+
+      /* Number Input */
+      input[type="number"] {
+        font-weight: 600;
+        color: var(--primary-text);
+        position: relative;
+      }
+
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Quantity Container */
+      .quantity-container {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: var(--transition);
+      }
+
+      .quantity-container:focus-within {
+        border-color: var(--gold);
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3),
+          0 0 0 4px rgba(255, 215, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .quantity-container input[type="number"] {
+        flex: 1;
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+        padding: 15px 20px;
+        margin: 0;
+      }
+
+      .quantity-container input[type="number"]:focus {
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      .quantity-btn {
+        width: 45px;
+        height: 53px;
+        border: none;
+        background: linear-gradient(135deg, var(--gold), #ffa500);
+        color: var(--primary-text);
+        font-size: 1.3rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .quantity-btn::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: var(--transition);
+      }
+
+      .quantity-btn:hover::before {
+        width: 100px;
+        height: 100px;
+      }
+
+      .quantity-btn:hover {
+        background: linear-gradient(135deg, #ffa500, var(--gold));
+        transform: scale(1.05);
+      }
+
+      .quantity-btn:active {
+        transform: scale(0.95);
+      }
+
+      .quantity-btn.minus {
+        border-right: 1px solid rgba(255, 215, 0, 0.3);
+      }
+
+      .quantity-btn.plus {
+        border-left: 1px solid rgba(255, 215, 0, 0.3);
+      }
+
+      /* Conditional Sections */
+      .conditional-section {
+        animation: slideDown 0.4s ease-out;
+        border-left: 3px solid var(--gold);
+        padding-left: 20px;
+        margin-left: 10px;
+        margin-top: 20px;
+        background: rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 12px;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          max-height: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          max-height: 2000px;
+          transform: translateY(0);
+        }
+      }
+
+      /* Submit Button */
+      button[type="submit"] {
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        color: white;
+        padding: 16px 32px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        font-family: Delius;
+        font-weight: bold;
+        font-size: clamp(1rem, 2.5vw, 1.15rem);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 6px 20px rgba(92, 184, 92, 0.4);
+        position: relative;
+        overflow: hidden;
+        margin-top: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button[type="submit"]::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      button[type="submit"]:hover::before {
+        left: 100%;
+      }
+
+      button[type="submit"]:hover {
+        background: linear-gradient(135deg, #20c997 0%, #28a745 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(92, 184, 92, 0.5);
+      }
+
+      button[type="submit"]:active {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(92, 184, 92, 0.4);
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(
+          135deg,
+          #2c1810 0%,
+          #8c4b29 50%,
+          #2c1810 100%
+        );
+        color: #ffdab9;
+        padding: 60px 20px 20px;
+        margin-top: 50px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .footer::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #bad012, #ffd700, #bad012);
+        animation: shimmer 3s ease-in-out infinite;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-section h3 {
+        color: #bad012;
+        font-family: Delius;
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      }
+
+      .footer-section p,
+      .footer-section li {
+        line-height: 1.6;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .footer-section ul li {
+        padding: 5px 0;
+        border-bottom: 1px solid rgba(255, 218, 185, 0.1);
+      }
+
+      .footer-section ul li:last-child {
+        border-bottom: none;
+      }
+
+      .footer-section a {
+        color: #ffdab9;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .footer-section a:hover {
+        color: #bad012;
+        text-shadow: 0 0 5px rgba(186, 208, 18, 0.5);
+      }
+
+      .footer-social {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .footer-social a {
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        background: rgba(186, 208, 18, 0.2);
+        border-radius: 50%;
+        text-align: center;
+        line-height: 35px;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .footer-social a:hover {
+        background: #bad012;
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 5px 15px rgba(186, 208, 18, 0.4);
+      }
+
+      .footer-bottom {
+        border-top: 2px solid rgba(255, 218, 185, 0.2);
+        padding-top: 20px;
+        text-align: center;
+        position: relative;
+      }
+
+      .footer-bottom p {
+        margin: 0;
+        font-size: 13px;
+        color: rgba(255, 218, 185, 0.8);
+      }
+
+      .footer-bottom .copyright {
+        font-weight: bold;
+        color: #bad012;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Mobile Responsive */
+      @media screen and (max-width: 768px) {
+        .topnav {
+          padding: 0 5px;
+          position: relative;
+          min-height: 50px;
+        }
+
+        .topnav a:not(.active):not(.cart-icon):not(.icon) {
+          display: none;
+          clear: both;
+          width: 100%;
+        }
+
+        .topnav a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        .topnav .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .topnav a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          display: block !important;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 1.2rem;
+          color: var(--primary-text);
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .topnav a {
+          margin: 5px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .topnav.responsive {
+          position: relative;
+        }
+
+        .topnav.responsive a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        .topnav.responsive .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+        }
+
+        .topnav.responsive a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          color: var(--gold);
+          background: linear-gradient(45deg, #008000, #006400);
+          margin: 8px 3px;
+        }
+
+        .topnav.responsive a:not(.active):not(.icon):not(.cart-icon) {
+          display: block;
+          float: none;
+          text-align: left;
+          width: 100%;
+          clear: both;
+          margin: 5px 10px;
+        }
+
+        .topnav.responsive
+          a:not(.active):not(.icon):not(.cart-icon):first-of-type {
+          padding-top: 0;
+          margin-top: 50px;
+        }
+
+        .footer-content {
+          grid-template-columns: 1fr;
+          gap: 30px;
+          text-align: center;
+        }
+
+        .footer-social {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          margin: 15px 10px;
+          padding: 20px 15px;
+          border-radius: 18px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        input[type="time"],
+        select,
+        textarea {
+          padding: 12px 14px;
+        }
+
+        button[type="submit"] {
+          padding: 12px 20px;
+          font-size: 0.95rem;
+        }
+
+        label {
+          font-size: 0.9rem;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+        }
+
+        .quantity-btn {
+          width: 40px;
+          height: 48px;
+          font-size: 1.1rem;
+        }
+
+        .conditional-section {
+          padding: 15px;
+          margin-left: 5px;
+          padding-left: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="topnav" id="myTopnav">
+      <a href="index.html">Home</a>
+      <a href="Products_chocolates.html">Products</a>
+      <a href="index.html">About Me</a>
+      <a href="index.html">Contact Us</a>
+      <a href="special_order_chocolates.html" class="active">Special Order</a>
+      <a href="Cart_chocolates.html" class="cart-icon">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">(0)</span>
+      </a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <div class="container">
+      <h2>Special Order Form</h2>
+
+      <!-- PRICING NOTE -->
+      <div
+        style="
+          background: rgba(255, 215, 0, 0.15);
+          border-left: 4px solid var(--gold);
+          padding: 15px 20px;
+          border-radius: 8px;
+          margin-bottom: 25px;
+          animation: fadeInUp 0.6s ease-out;
+        "
+      >
+        <p
+          style="
+            margin: 0;
+            color: white;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            line-height: 1.6;
+            font-family: Delius;
+          "
+        >
+          <i
+            class="fa fa-info-circle"
+            style="color: var(--gold); margin-right: 8px"
+          ></i>
+          <strong style="color: var(--gold)">Note:</strong> The final pricing
+          for your custom order will be confirmed after our team carefully
+          reviews your specific requirements and preferences. We'll get back to
+          you shortly with a detailed quote.
+        </p>
+      </div>
+
+      <form id="special-order-form">
+        <!-- Name Field -->
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+
+        <!-- Phone Number Field -->
+        <div class="form-group">
+          <label for="phone">Phone Number:</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            pattern="[0-9]{10}"
+            maxlength="10"
+            placeholder="Enter 10-digit phone number"
+            required
+          />
+        </div>
+
+        <!-- Address Field -->
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <textarea
+            id="address"
+            name="address"
+            placeholder="Enter your complete address for delivery..."
+            required
+          ></textarea>
+        </div>
+
+        <!-- Type of Product Field -->
+        <div class="form-group">
+          <label for="product-type">Type of Product:</label>
+          <select id="product-type" name="product-type" required>
+            <option value="">Select product type...</option>
+            <option value="cupcakes">🧁 Cupcakes</option>
+            <option value="chocolates">🍫 Chocolates</option>
+            <option value="brownies">🍰 Brownies</option>
+            <option value="donuts">🍩 Donuts</option>
+            <option value="ghewar">🪔 Ghewar</option>
+          </select>
+        </div>
+
+        <!-- CONDITIONAL SECTION FOR CUPCAKES -->
+        <div
+          id="cupcakes-section"
+          class="conditional-section"
+          style="display: none"
+        >
+          <div class="form-group">
+            <label for="cupcakes-quantity"
+              >Quantity of Cupcakes (minimum 12 pieces):</label
+            >
+            <div class="quantity-container">
+              <button
+                type="button"
+                class="quantity-btn minus"
+                onclick="decrementQuantity('cupcakes-quantity', 12, 6)"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                id="cupcakes-quantity"
+                name="cupcakes-quantity"
+                value="12"
+                min="12"
+                step="6"
+                readonly
+              />
+              <button
+                type="button"
+                class="quantity-btn plus"
+                onclick="incrementQuantity('cupcakes-quantity', 6)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="cupcakes-flavour">Flavour:</label>
+            <input
+              type="text"
+              id="cupcakes-flavour"
+              name="cupcakes-flavour"
+              placeholder="e.g., Vanilla, Chocolate, Red Velvet, Butterscotch (or type 'None' if no preference)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cupcakes-theme">Theme:</label>
+            <input
+              type="text"
+              id="cupcakes-theme"
+              name="cupcakes-theme"
+              placeholder="e.g., Birthday, Baby Shower, Wedding, Custom (or type 'None' if no preference)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cupcakes-requests">Any Other Requests:</label>
+            <textarea
+              id="cupcakes-requests"
+              name="cupcakes-requests"
+              placeholder="Special topping preferences, decorations, dietary requirements (or type 'None' if no special requests)"
+            ></textarea>
+            <small
+              style="
+                display: block;
+                margin-top: 8px;
+                color: var(--peach);
+                font-size: 0.85rem;
+                font-style: italic;
+              "
+            >
+              <i class="fa fa-camera"></i> If you have reference images for
+              design/theme, please send them via WhatsApp after submitting this
+              form
+            </small>
+          </div>
+        </div>
+
+        <!-- CONDITIONAL SECTION FOR CHOCOLATES -->
+        <div
+          id="chocolates-section"
+          class="conditional-section"
+          style="display: none"
+        >
+          <div class="form-group">
+            <label for="chocolates-quantity"
+              >Number of Chocolates (minimum 50 pieces):</label
+            >
+            <div class="quantity-container">
+              <button
+                type="button"
+                class="quantity-btn minus"
+                onclick="decrementQuantity('chocolates-quantity', 50, 1)"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                id="chocolates-quantity"
+                name="chocolates-quantity"
+                value="50"
+                min="50"
+                step="1"
+                readonly
+              />
+              <button
+                type="button"
+                class="quantity-btn plus"
+                onclick="incrementQuantity('chocolates-quantity', 1)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="chocolates-flavour">Flavour:</label>
+            <input
+              type="text"
+              id="chocolates-flavour"
+              name="chocolates-flavour"
+              placeholder="e.g., Dark Chocolate, Milk Chocolate, Hazelnut, Caramel (or type 'None' if no preference)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="chocolates-filling">Filling:</label>
+            <input
+              type="text"
+              id="chocolates-filling"
+              name="chocolates-filling"
+              placeholder="e.g., Truffle, Caramel, Nuts, Fruit, Cream (or type 'None' if no preference)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="chocolates-colour">Chocolate Type:</label>
+            <select id="chocolates-colour" name="chocolates-colour">
+              <option value="">Select chocolate type...</option>
+              <option value="dark">🍫 Dark Chocolate</option>
+              <option value="milk">🥛 Milk Chocolate</option>
+              <option value="white">🤍 White Chocolate</option>
+              <option value="mixed">🎨 Mixed Variety</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="chocolates-requests">Any Other Requests:</label>
+            <textarea
+              id="chocolates-requests"
+              name="chocolates-requests"
+              placeholder="Packaging preferences, custom messages, gift wrapping (or type 'None' if no special requests)"
+            ></textarea>
+            <small
+              style="
+                display: block;
+                margin-top: 8px;
+                color: var(--peach);
+                font-size: 0.85rem;
+                font-style: italic;
+              "
+            >
+              <i class="fa fa-camera"></i> If you have reference images for
+              packaging/design, please send them via WhatsApp after submitting
+              this form
+            </small>
+          </div>
+        </div>
+
+        <!-- CONDITIONAL SECTION FOR BROWNIES -->
+        <div
+          id="brownies-section"
+          class="conditional-section"
+          style="display: none"
+        >
+          <div class="form-group">
+            <label for="brownies-quantity"
+              >Quantity of Brownies (minimum 6 pieces):</label
+            >
+            <div class="quantity-container">
+              <button
+                type="button"
+                class="quantity-btn minus"
+                onclick="decrementQuantity('brownies-quantity', 6, 1)"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                id="brownies-quantity"
+                name="brownies-quantity"
+                value="6"
+                min="6"
+                step="1"
+                readonly
+              />
+              <button
+                type="button"
+                class="quantity-btn plus"
+                onclick="incrementQuantity('brownies-quantity', 1)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="brownies-garnishing">Garnishing Options:</label>
+            <input
+              type="text"
+              id="brownies-garnishing"
+              name="brownies-garnishing"
+              placeholder="e.g., Chocolate Drizzle, Dry Fruits, Caramel Sauce, Whipped Cream (or type 'None' if no garnishing)"
+            />
+            <small
+              >You can mention multiple garnishing options separated by
+              commas</small
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="brownies-requests">Any Other Requests:</label>
+            <textarea
+              id="brownies-requests"
+              name="brownies-requests"
+              placeholder="Fudgy or cakey texture, special ingredients, packaging preferences (or type 'None' if no special requests)"
+            ></textarea>
+            <small
+              style="
+                display: block;
+                margin-top: 8px;
+                color: var(--peach);
+                font-size: 0.85rem;
+                font-style: italic;
+              "
+            >
+              <i class="fa fa-camera"></i> If you have reference images, please
+              send them via WhatsApp after submitting this form
+            </small>
+          </div>
+        </div>
+
+        <!-- CONDITIONAL SECTION FOR DONUTS -->
+        <div
+          id="donuts-section"
+          class="conditional-section"
+          style="display: none"
+        >
+          <div class="form-group">
+            <label for="donuts-quantity"
+              >Quantity of Donuts (minimum 12 pieces):</label
+            >
+            <div class="quantity-container">
+              <button
+                type="button"
+                class="quantity-btn minus"
+                onclick="decrementQuantity('donuts-quantity', 12, 6)"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                id="donuts-quantity"
+                name="donuts-quantity"
+                value="12"
+                min="12"
+                step="6"
+                readonly
+              />
+              <button
+                type="button"
+                class="quantity-btn plus"
+                onclick="incrementQuantity('donuts-quantity', 6)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="donuts-flavour">Flavour:</label>
+            <input
+              type="text"
+              id="donuts-flavour"
+              name="donuts-flavour"
+              placeholder="e.g., Glazed, Chocolate, Strawberry, Cinnamon, Nutella (or type 'None' if no preference)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="donuts-theme">Theme:</label>
+            <input
+              type="text"
+              id="donuts-theme"
+              name="donuts-theme"
+              placeholder="e.g., Rainbow, Unicorn, Sports, Custom Colors (or type 'None' if no preference)"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="donuts-requests">Any Other Requests:</label>
+            <textarea
+              id="donuts-requests"
+              name="donuts-requests"
+              placeholder="Frosting preferences, sprinkles, filled or ring donuts (or type 'None' if no special requests)"
+            ></textarea>
+            <small
+              style="
+                display: block;
+                margin-top: 8px;
+                color: var(--peach);
+                font-size: 0.85rem;
+                font-style: italic;
+              "
+            >
+              <i class="fa fa-camera"></i> If you have reference images for
+              design/theme, please send them via WhatsApp after submitting this
+              form
+            </small>
+          </div>
+        </div>
+
+        <!-- CONDITIONAL SECTION FOR GHEWAR -->
+        <div
+          id="ghewar-section"
+          class="conditional-section"
+          style="display: none"
+        >
+          <div class="form-group">
+            <label for="ghewar-quantity"
+              >Quantity of Ghewar (minimum 3 pieces):</label
+            >
+            <div class="quantity-container">
+              <button
+                type="button"
+                class="quantity-btn minus"
+                onclick="decrementQuantity('ghewar-quantity', 3, 3)"
+              >
+                −
+              </button>
+              <input
+                type="number"
+                id="ghewar-quantity"
+                name="ghewar-quantity"
+                value="3"
+                min="3"
+                step="3"
+                readonly
+              />
+              <button
+                type="button"
+                class="quantity-btn plus"
+                onclick="incrementQuantity('ghewar-quantity', 3)"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="ghewar-type">Type of Ghewar:</label>
+            <select id="ghewar-type" name="ghewar-type">
+              <option value="">Select ghewar type...</option>
+              <option value="premium">⭐ Premium Ghewar</option>
+              <option value="classic">🪔 Classic Ghewar</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ghewar-packaging">Packaging Type:</label>
+            <select id="ghewar-packaging" name="ghewar-packaging">
+              <option value="">Select packaging type...</option>
+              <option value="gift">🎁 Gift Packaging</option>
+              <option value="classic">📦 Classic Packaging</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ghewar-delivery-date"
+              >Select Delivery Date for Ghewar:</label
+            >
+            <select id="ghewar-delivery-date" name="ghewar-delivery-date">
+              <option value="">Select available delivery date...</option>
+              <!-- Dates will be populated by JavaScript -->
+            </select>
+            <small>Ghewar is only available on specific dates</small>
+          </div>
+
+          <div class="form-group">
+            <label for="ghewar-requests">Any Other Requests:</label>
+            <textarea
+              id="ghewar-requests"
+              name="ghewar-requests"
+              placeholder="Size preferences, sugar coating level, special decorations (or type 'None' if no special requests)"
+            ></textarea>
+            <small
+              style="
+                display: block;
+                margin-top: 8px;
+                color: var(--peach);
+                font-size: 0.85rem;
+                font-style: italic;
+              "
+            >
+              <i class="fa fa-camera"></i> If you have reference images for
+              decorations, please send them via WhatsApp after submitting this
+              form
+            </small>
+          </div>
+        </div>
+
+        <!-- COMMON FIELDS (APPEAR AFTER PRODUCT SELECTION - EXCEPT FOR GHEWAR) -->
+        <div id="common-fields" style="display: none">
+          <div class="form-group">
+            <label for="delivery-date">Date for Order Delivery:</label>
+            <input type="date" id="delivery-date" name="delivery-date" />
+            <small>Orders must be placed at least 1 day in advance</small>
+          </div>
+
+          <div class="form-group">
+            <label for="delivery-time">Preferred Delivery Time:</label>
+            <div class="time-input-wrapper">
+              <input
+                type="time"
+                id="delivery-time"
+                name="delivery-time"
+                min="15:00"
+                max="19:00"
+              />
+              <small>(3:00 PM - 7:00 PM only)</small>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="delivery-mode">Mode of Delivery:</label>
+            <select id="delivery-mode" name="delivery-mode">
+              <option value="">Select delivery option...</option>
+              <option value="homedelivery">🚚 Home Delivery</option>
+              <option value="pickup">🏪 Store Pick Up</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Submit Order</button>
+      </form>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <!-- PROFESSIONAL BUSINESS FOOTER -->
+
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- About Section -->
+        <div class="footer-section">
+          <h3>About Passion Bakery</h3>
+          <p>
+            Your one-stop destination for handcrafted chocolates, delicious
+            cakes, and unique gift items. We create sweet memories with every
+            bite, using only the finest ingredients and lots of love.
+          </p>
+          <p><strong>Quality • Freshness • Excellence</strong></p>
+        </div>
+
+        <!-- Quick Links Section -->
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Products_chocolates.html">Our Products</a></li>
+            <li><a href="Cake.html">Cakes Collection</a></li>
+            <li><a href="Products_chocolates.html">Chocolates</a></li>
+            <li><a href="Gift.html">Gift Items</a></li>
+            <li><a href="special_order_chocolates.html">Special Orders</a></li>
+            <li><a href="index.html">About Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact Info Section -->
+        <div class="footer-section">
+          <h3>Contact Information</h3>
+          <ul>
+            <li>📧 pbcpassionchocolate21@gmail.com</li>
+            <li>📱 +91 74002 96336</li>
+            <li>🕒 Mon-Fri: 10:00 AM - 7:00 PM</li>
+            <li>🕒 Sat: 9:00 AM - 1:00 PM</li>
+            <li>🚚 Home Delivery Available</li>
+            <li>💳 All Payment Methods Accepted</li>
+          </ul>
+        </div>
+
+        <!-- Social & Services Section -->
+        <div class="footer-section">
+          <h3>Connect With Us</h3>
+          <p>
+            Follow us for daily updates, new products, and sweet inspirations!
+          </p>
+
+          <div class="footer-social">
+            <a
+              href="https://www.facebook.com/share/1CmymuJ4hc/"
+              target="_blank"
+              title="Facebook"
+              >📘</a
+            >
+            <a
+              href="https://www.instagram.com/passionchocolatesworld?utm_source=qr&igsh=MXFsNGd1YXRqcDlhZg=="
+              target="_blank"
+              title="Instagram"
+              >📷</a
+            >
+            <a
+              href="https://wa.me/917400296336"
+              target="_blank"
+              title="WhatsApp"
+              >💬</a
+            >
+            <!-- <a
+              href="https://in.pinterest.com/"
+              target="_blank"
+              title="Pinterest"
+              >📌</a
+            > -->
+            <a
+              href="https://share.google/pfo83AjPDmMGBeVmf"
+              target="_blank"
+              title="Google"
+              >🌐</a
+            >
+          </div>
+
+          <p style="margin-top: 20px">
+            <strong>🎂 Custom Orders Welcome</strong><br />
+            <small
+              >Bulk Chocolate Orders • Bulk Cupcake Orders • Corporate
+              Gifts</small
+            >
+          </p>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <p>
+          &copy; 2025 <span class="copyright">La Ruby Studio</span> | Passion
+          Chocolate World (PB&C) | All Rights Reserved
+        </p>
+        <p style="margin-top: 5px; font-size: 12px">
+          Designed with ❤️ for Sweet Lovers | Made in India 🇮🇳
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // ========================================
+      // PRODUCT AVAILABILITY CONFIGURATION
+      // ========================================
+      const productAvailability = {
+        cupcakes: true,
+        chocolates: true,
+        brownies: true,
+        donuts: true,
+        ghewar: false,
+      };
+
+      // Ghewar delivery dates configuration (format: YYYY-MM-DD)
+      const ghewarDeliveryDates = [
+        { date: "2025-10-25", label: "October 25, 2025 (Diwali)" },
+        { date: "2025-11-05", label: "November 5, 2025 (Special)" },
+      ];
+
+      // ========================================
+      // NAVIGATION BAR FUNCTIONALITY
+      // ========================================
+      function myFunction() {
+        const nav = document.getElementById("myTopnav");
+        nav.className =
+          nav.className === "topnav" ? "topnav responsive" : "topnav";
+      }
+
+      // ========================================
+      // CART COUNT DISPLAY
+      // ========================================
+      (function updateCartCount() {
+        const cartData =
+          JSON.parse(localStorage.getItem("ChocolatecartData")) || {};
+        const cartCount = Object.values(cartData).reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = `(${cartCount})`;
+        }
+      })();
+
+      // ========================================
+      // FORM INITIALIZATION
+      // ========================================
+      document.addEventListener("DOMContentLoaded", function () {
+        // Update product type dropdown based on availability
+        updateProductAvailability();
+
+        // Populate ghewar delivery dates
+        populateGhewarDates();
+
+        // Phone validation
+        const phoneInput = document.getElementById("phone");
+        phoneInput.addEventListener("input", function (e) {
+          this.value = this.value.replace(/[^0-9]/g, "");
+        });
+        phoneInput.addEventListener("keypress", function (e) {
+          const charCode = e.which || e.keyCode;
+          if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            e.preventDefault();
+          }
+        });
+
+        // Product type conditional display
+        const productTypeSelect = document.getElementById("product-type");
+        const commonFields = document.getElementById("common-fields");
+        const conditionalSections = {
+          cupcakes: document.getElementById("cupcakes-section"),
+          chocolates: document.getElementById("chocolates-section"),
+          brownies: document.getElementById("brownies-section"),
+          donuts: document.getElementById("donuts-section"),
+          ghewar: document.getElementById("ghewar-section"),
+        };
+
+        productTypeSelect.addEventListener("change", function () {
+          const selectedProduct = this.value;
+
+          // Hide all sections and disable required validation
+          Object.entries(conditionalSections).forEach(([key, section]) => {
+            if (section) {
+              section.style.display = "none";
+              // Disable required for all inputs in hidden sections
+              const inputs = section.querySelectorAll(
+                "input, select, textarea"
+              );
+              inputs.forEach((input) => input.removeAttribute("required"));
+            }
+          });
+
+          // Disable required for common fields initially
+          const commonInputs = commonFields.querySelectorAll(
+            "input, select, textarea"
+          );
+          commonInputs.forEach((input) => input.removeAttribute("required"));
+          commonFields.style.display = "none";
+
+          // Show selected product section and enable required validation
+          if (selectedProduct && conditionalSections[selectedProduct]) {
+            conditionalSections[selectedProduct].style.display = "block";
+
+            // Enable required for visible section inputs
+            const visibleInputs = conditionalSections[
+              selectedProduct
+            ].querySelectorAll("input, select, textarea");
+            visibleInputs.forEach((input) => {
+              if (input.type !== "number" || input.id.includes("quantity")) {
+                input.setAttribute("required", "required");
+              }
+            });
+
+            // For Ghewar, don't show common fields (has its own date selector)
+            if (selectedProduct === "ghewar") {
+              // Ghewar has its own date field, no common fields needed
+            } else {
+              commonFields.style.display = "block";
+              // Enable required for common fields
+              const commonInputs =
+                commonFields.querySelectorAll("input, select");
+              commonInputs.forEach((input) =>
+                input.setAttribute("required", "required")
+              );
+            }
+          }
+        });
+
+        // Set minimum date to tomorrow
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        const minDate = tomorrow.toISOString().split("T")[0];
+        const deliveryDateInput = document.getElementById("delivery-date");
+        if (deliveryDateInput) {
+          deliveryDateInput.setAttribute("min", minDate);
+        }
+
+        // Form submission
+        const specialOrderForm = document.getElementById("special-order-form");
+        specialOrderForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const commonData = {
+            name: document.getElementById("name").value.trim(),
+            phone: phoneInput.value.trim(),
+            address: document.getElementById("address").value.trim(),
+            productType: productTypeSelect.value,
+          };
+
+          // For ghewar, get date from ghewar-specific field
+          if (commonData.productType === "ghewar") {
+            const ghewarDateSelect = document.getElementById(
+              "ghewar-delivery-date"
+            );
+            commonData.deliveryDate =
+              ghewarDateSelect.options[ghewarDateSelect.selectedIndex]?.text ||
+              "Not specified";
+            commonData.deliveryTime = "N/A";
+            commonData.deliveryMode = "As per Ghewar delivery schedule";
+          } else {
+            commonData.deliveryDate =
+              document.getElementById("delivery-date").value;
+            commonData.deliveryTime =
+              document.getElementById("delivery-time").value;
+            const deliveryModeSelect = document.getElementById("delivery-mode");
+            commonData.deliveryMode =
+              deliveryModeSelect.options[deliveryModeSelect.selectedIndex]
+                ?.text || "Not specified";
+          }
+
+          if (!validateCommonFields(commonData)) return;
+
+          let productData = {};
+          let productEmoji = "";
+
+          switch (commonData.productType) {
+            case "cupcakes":
+              productData = getCupcakesData();
+              productEmoji = "🧁";
+              break;
+            case "chocolates":
+              productData = getChocolatesData();
+              productEmoji = "🍫";
+              break;
+            case "brownies":
+              productData = getBrowniesData();
+              productEmoji = "🍰";
+              break;
+            case "donuts":
+              productData = getDonutsData();
+              productEmoji = "🍩";
+              break;
+            case "ghewar":
+              productData = getGhewarData();
+              productEmoji = "🪔";
+              break;
+            default:
+              alert("Please select a product type.");
+              return;
+          }
+
+          const whatsappMessage = formatWhatsAppMessage(
+            commonData,
+            productData,
+            productEmoji
+          );
+          sendToWhatsApp(whatsappMessage);
+        });
+
+        // ========================================
+        // HELPER FUNCTIONS
+        // ========================================
+
+        function updateProductAvailability() {
+          const select = document.getElementById("product-type");
+          const options = select.querySelectorAll("option");
+
+          options.forEach((option) => {
+            const value = option.value;
+            if (value && !productAvailability[value]) {
+              option.disabled = true;
+              option.textContent += " (Currently Unavailable)";
+              option.style.color = "#999";
+            }
+          });
+        }
+
+        function populateGhewarDates() {
+          const select = document.getElementById("ghewar-delivery-date");
+          ghewarDeliveryDates.forEach((dateObj) => {
+            const option = document.createElement("option");
+            option.value = dateObj.date;
+            option.textContent = dateObj.label;
+            select.appendChild(option);
+          });
+        }
+
+        function validateCommonFields(data) {
+          if (!data.name || !data.phone || !data.address) {
+            alert("Please fill in all required fields.");
+            return false;
+          }
+
+          if (data.phone.length !== 10 || !/^\d{10}$/.test(data.phone)) {
+            alert("Please enter a valid 10-digit phone number.");
+            return false;
+          }
+
+          if (!data.productType) {
+            alert("Please select a product type.");
+            return false;
+          }
+
+          // Validate delivery date for non-ghewar products
+          if (data.productType !== "ghewar") {
+            const deliveryDate = new Date(data.deliveryDate);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            deliveryDate.setHours(0, 0, 0, 0);
+
+            if (deliveryDate <= today) {
+              alert("Delivery date must be at least tomorrow.");
+              return false;
+            }
+
+            // Validate time (3 PM to 7 PM)
+            if (data.deliveryTime) {
+              const [hours, minutes] = data.deliveryTime.split(":").map(Number);
+              if (hours < 15 || hours > 19 || (hours === 19 && minutes > 0)) {
+                alert("Delivery time must be between 3:00 PM and 7:00 PM.");
+                return false;
+              }
+            }
+
+            if (
+              !data.deliveryMode ||
+              data.deliveryMode === "Select delivery option..."
+            ) {
+              alert("Please select a delivery mode.");
+              return false;
+            }
+          } else {
+            // Validate ghewar delivery date
+            if (!data.deliveryDate || data.deliveryDate === "Not specified") {
+              alert("Please select a delivery date for Ghewar.");
+              return false;
+            }
+          }
+
+          return true;
+        }
+
+        function getCupcakesData() {
+          return {
+            quantity: document.getElementById("cupcakes-quantity").value,
+            flavour:
+              document.getElementById("cupcakes-flavour").value.trim() ||
+              "No preference",
+            theme:
+              document.getElementById("cupcakes-theme").value.trim() ||
+              "No preference",
+            requests:
+              document.getElementById("cupcakes-requests").value.trim() ||
+              "None",
+          };
+        }
+
+        function getChocolatesData() {
+          const colourSelect = document.getElementById("chocolates-colour");
+          const colourText =
+            colourSelect.options[colourSelect.selectedIndex]?.text ||
+            "Not specified";
+
+          return {
+            quantity: document.getElementById("chocolates-quantity").value,
+            flavour:
+              document.getElementById("chocolates-flavour").value.trim() ||
+              "No preference",
+            filling:
+              document.getElementById("chocolates-filling").value.trim() ||
+              "No preference",
+            colour: colourText,
+            requests:
+              document.getElementById("chocolates-requests").value.trim() ||
+              "None",
+          };
+        }
+
+        function getBrowniesData() {
+          return {
+            quantity: document.getElementById("brownies-quantity").value,
+            garnishing:
+              document.getElementById("brownies-garnishing").value.trim() ||
+              "No garnishing",
+            requests:
+              document.getElementById("brownies-requests").value.trim() ||
+              "None",
+          };
+        }
+
+        function getDonutsData() {
+          return {
+            quantity: document.getElementById("donuts-quantity").value,
+            flavour:
+              document.getElementById("donuts-flavour").value.trim() ||
+              "No preference",
+            theme:
+              document.getElementById("donuts-theme").value.trim() ||
+              "No preference",
+            requests:
+              document.getElementById("donuts-requests").value.trim() || "None",
+          };
+        }
+
+        function getGhewarData() {
+          const typeSelect = document.getElementById("ghewar-type");
+          const packagingSelect = document.getElementById("ghewar-packaging");
+          const dateSelect = document.getElementById("ghewar-delivery-date");
+
+          return {
+            quantity: document.getElementById("ghewar-quantity").value,
+            type:
+              typeSelect.options[typeSelect.selectedIndex]?.text ||
+              "Not specified",
+            packaging:
+              packagingSelect.options[packagingSelect.selectedIndex]?.text ||
+              "Not specified",
+            deliveryDate:
+              dateSelect.options[dateSelect.selectedIndex]?.text ||
+              "Not specified",
+            requests:
+              document.getElementById("ghewar-requests").value.trim() || "None",
+          };
+        }
+
+        function formatWhatsAppMessage(commonData, productData, productEmoji) {
+          let message = `${productEmoji} *Special Order* ${productEmoji}\n\n`;
+
+          message += `👤 *Name:* ${commonData.name}\n`;
+          message += `📞 *Phone:* ${commonData.phone}\n`;
+          message += `📍 *Address:* ${commonData.address}\n\n`;
+
+          message += `${productEmoji} *Product Type:* ${capitalizeFirst(
+            commonData.productType
+          )}\n`;
+          message += `📦 *Quantity:* ${productData.quantity} pieces\n`;
+
+          if (commonData.productType === "cupcakes") {
+            message += `🎂 *Flavour:* ${productData.flavour}\n`;
+            message += `🎨 *Theme:* ${productData.theme}\n`;
+          } else if (commonData.productType === "chocolates") {
+            message += `🍬 *Flavour:* ${productData.flavour}\n`;
+            message += `🍫 *Filling:* ${productData.filling}\n`;
+            message += `🎨 *Chocolate Type:* ${productData.colour}\n`;
+          } else if (commonData.productType === "brownies") {
+            message += `✨ *Garnishing:* ${productData.garnishing}\n`;
+          } else if (commonData.productType === "donuts") {
+            message += `🍩 *Flavour:* ${productData.flavour}\n`;
+            message += `🎨 *Theme:* ${productData.theme}\n`;
+          } else if (commonData.productType === "ghewar") {
+            message += `⭐ *Type:* ${productData.type}\n`;
+            message += `📦 *Packaging:* ${productData.packaging}\n`;
+          }
+
+          if (commonData.productType !== "ghewar") {
+            message += `📅 *Delivery Date:* ${commonData.deliveryDate}\n`;
+            message += `🕐 *Delivery Time:* ${commonData.deliveryTime}\n`;
+            message += `🚚 *Delivery Mode:* ${commonData.deliveryMode}\n\n`;
+          } else {
+            message += `📅 *Delivery Date:* ${commonData.deliveryDate}\n\n`;
+          }
+
+          message += `💬 *Special Requests:*\n${productData.requests}\n\n`;
+          message += `📸 *Please send any reference images in your next message if applicable*`;
+
+          return message;
+        }
+
+        function capitalizeFirst(str) {
+          return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        function sendToWhatsApp(message) {
+          const whatsappNumber = "919869153017";
+          const encodedMessage = encodeURIComponent(message);
+          const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+          window.open(whatsappURL, "_blank");
+          alert(
+            "Redirecting to WhatsApp. Please send the message to complete your order!"
+          );
+        }
+      });
+
+      // ========================================
+      // QUANTITY CONTROL FUNCTIONS
+      // ========================================
+      function incrementQuantity(inputId, step) {
+        const input = document.getElementById(inputId);
+        if (input) {
+          const currentValue = parseInt(input.value) || 0;
+          input.value = currentValue + step;
+        }
+      }
+
+      function decrementQuantity(inputId, minimum, step) {
+        const input = document.getElementById(inputId);
+        if (input) {
+          const currentValue = parseInt(input.value) || minimum;
+          if (currentValue > minimum) {
+            input.value = currentValue - step;
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,3260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PassionBakeryNChocos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Delius&family=Diphylleia&family=Great+Vibes&family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* CSS Variables */
+      :root {
+        --primary-color: #6366f1;
+        --secondary-color: #f59e0b;
+        --accent-color: #10b981;
+        --text-primary: #1f2937;
+        --text-secondary: #6b7280;
+        --border-radius: 16px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* CSS Variables */
+      :root {
+        --primary-gradient: linear-gradient(
+          90deg,
+          rgba(30, 242, 253, 0.95) 0%,
+          rgba(74, 144, 226, 0.95) 100%
+        );
+        --section-gradient: linear-gradient(
+          135deg,
+          #6266f4 0%,
+          #4a54d1 50%,
+          #3d47b8 100%
+        );
+        --button-gradient: linear-gradient(45deg, #11124a, #1a1d5a);
+        --hover-gradient: linear-gradient(45deg, #fea3aa, #ff7b82);
+        --gold: #ffd700;
+        --primary-text: #11124a;
+        --white: #ffffff;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --border-radius: 20px;
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: #1ef2fd;
+        overflow-x: hidden;
+        line-height: 1.6;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        max-width: 100vw;
+      }
+
+      /* ========================================
+   NOTIFICATION STYLES - ENHANCED
+   ======================================== */
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: -400px;
+        background: linear-gradient(135deg, #6266f4 0%, #4a54d1 100%);
+        color: white;
+        padding: 18px 35px;
+        border-radius: 12px;
+        box-shadow: 0 10px 40px rgba(98, 102, 244, 0.4);
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: Delius, sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        border: 2px solid rgba(255, 215, 0, 0.4);
+        min-width: fit-content;
+        white-space: nowrap;
+      }
+
+      .notification.show {
+        right: 20px;
+        animation: slideInFromRight 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+
+      .notification.hide {
+        right: -400px;
+        opacity: 0;
+      }
+
+      .notification i {
+        font-size: 24px;
+        animation: checkPulse 0.6s ease-in-out;
+      }
+
+      .notification.added {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        border-color: rgba(16, 185, 129, 0.4);
+        box-shadow: 0 10px 40px rgba(16, 185, 129, 0.4);
+      }
+
+      .notification.removed {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        border-color: rgba(245, 158, 11, 0.4);
+        box-shadow: 0 10px 40px rgba(245, 158, 11, 0.4);
+      }
+
+      @keyframes slideInFromRight {
+        0% {
+          right: -400px;
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        60% {
+          right: 10px;
+          transform: scale(1.05);
+        }
+        80% {
+          right: 25px;
+        }
+        100% {
+          right: 20px;
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes checkPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+      }
+
+      /* Mobile notification positioning */
+      @media screen and (max-width: 768px) {
+        .notification {
+          top: 70px;
+          right: -400px;
+          transform: none;
+          width: auto;
+          max-width: calc(100% - 40px);
+          padding: 15px 20px;
+          font-size: 14px;
+        }
+
+        .notification.show {
+          right: 20px;
+        }
+
+        @keyframes slideInFromRight {
+          0% {
+            right: -400px;
+            opacity: 0;
+            transform: scale(0.8);
+          }
+          60% {
+            right: 10px;
+            transform: scale(1.05);
+          }
+          80% {
+            right: 25px;
+          }
+          100% {
+            right: 20px;
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      }
+
+      /* ========================================
+   NAVIGATION BAR - ENHANCED WITH STICKY
+   ======================================== */
+      .topnav {
+        overflow: hidden;
+        background: var(--primary-gradient);
+        font-family: Delius;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .topnav a,
+      .topnav .cart-icon {
+        float: left;
+        display: block;
+        color: var(--primary-text);
+        text-align: center;
+        padding: 16px 24px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        border-radius: 12px;
+        margin: 8px 6px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .topnav a:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: var(--transition);
+      }
+
+      .topnav a:hover:before {
+        left: 100%;
+      }
+
+      .topnav a:hover,
+      .topnav .cart-icon:hover {
+        background: linear-gradient(45deg, #0000ff, #4169e1);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      }
+
+      .topnav .cart-icon:hover {
+        transform: translateY(-2px) rotate(5deg);
+      }
+
+      .topnav a.active {
+        background: linear-gradient(45deg, #3e476f, #5a6491);
+        color: white;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        transform: scale(1.05);
+      }
+
+      .topnav .icon {
+        display: none;
+      }
+
+      /* Border Images */
+      .border-image {
+        width: min(70%, 600px);
+        height: auto;
+        margin: 20px auto;
+        display: block;
+        animation: imageFloat 6s ease-in-out infinite;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) brightness(1.1)
+          contrast(1.1);
+      }
+
+      @keyframes imageFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Product Container */
+      .product-container {
+        background: var(--section-gradient);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        padding: 40px;
+        border-radius: var(--border-radius);
+        margin: 20px clamp(10px, 3vw, 20px);
+        box-shadow: 0 10px 30px rgba(98, 102, 244, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      /* Filter and Search */
+      .filter-search {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 40px;
+        flex-wrap: wrap;
+      }
+
+      .search-container,
+      .filter-container {
+        flex: 1;
+        min-width: 250px;
+        max-width: 300px;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 16px 20px;
+        border: 2px solid rgba(99, 102, 241, 0.1);
+        border-radius: 12px;
+        font-size: 16px;
+        background: rgba(255, 255, 255, 0.9);
+        transition: var(--transition);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      }
+
+      input[type="text"]:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        transform: translateY(-2px);
+      }
+
+      /* Section Heading */
+      h2 {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: clamp(1.8rem, 5vw, 3.5rem);
+        text-align: center;
+        margin-bottom: 15px;
+        font-family: Great Vibes;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+      }
+
+      @keyframes titleGlow {
+        from {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        to {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 215, 0, 0.6);
+        }
+      }
+
+      /* Product Cards Grid */
+      .product-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        justify-content: center;
+        padding: 0 10px;
+      }
+
+      /* Product Card */
+      .product-card {
+        border: none;
+        border-radius: var(--border-radius);
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: var(--card-shadow);
+        transition: var(--transition);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .product-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        transform: scaleX(0);
+        transition: var(--transition);
+      }
+
+      .product-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--card-shadow-hover);
+      }
+
+      .product-image {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+        transition: var(--transition);
+      }
+
+      .product-card:hover .product-image {
+        transform: scale(1.05);
+      }
+
+      .product-card h3 {
+        margin-top: 16px;
+        font-size: 18px;
+        font-family: "Delius", cursive;
+        color: var(--text-primary);
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .product-card p {
+        color: var(--text-secondary);
+        font-weight: 500;
+        text-align: center;
+        margin: 8px 0;
+      }
+
+      #base-price {
+        display: none;
+      }
+
+      .price {
+        color: var(--accent-color);
+        font-weight: 700;
+        font-size: 20px;
+      }
+
+      /* Weight Selector */
+      .weight-selector {
+        margin: 15px 0;
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid rgba(99, 102, 241, 0.1);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        transition: var(--transition);
+      }
+
+      .weight-selector:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+      }
+
+      /* Quantity Control */
+      .quantity-control {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15px;
+        text-align: center;
+      }
+
+      .quantity-control button {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: var(--transition);
+        font-weight: bold;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .quantity-control button:hover {
+        background: #4f46e5;
+        transform: scale(1.1);
+      }
+
+      .quantity {
+        margin: 0 20px;
+        font-weight: 600;
+        font-size: 18px;
+        color: var(--text-primary);
+      }
+
+      /* Add to Cart Button */
+      .add-to-cart {
+        background: linear-gradient(135deg, var(--accent-color), #059669);
+        color: white;
+        border: none;
+        padding: 14px 28px;
+        cursor: pointer;
+        margin: 15px auto;
+        border-radius: 12px;
+        transition: var(--transition);
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        max-width: 150px;
+      }
+
+      .add-to-cart::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: var(--transition);
+      }
+
+      .add-to-cart:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      .add-to-cart:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+      }
+
+      /* Footer */
+      .business-footer {
+        background: linear-gradient(
+          135deg,
+          #0000ff 0%,
+          #1e3a8a 50%,
+          #1e40af 100%
+        );
+        color: floralwhite;
+        padding: clamp(40px, 6vw, 60px) clamp(15px, 4vw, 20px)
+          clamp(20px, 3vw, 30px);
+        font-family: Delius;
+        border-top: 4px solid var(--gold);
+        box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.2);
+        margin-top: 30px;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: clamp(25px, 5vw, 40px);
+      }
+
+      .footer-section {
+        flex: 1 1 280px;
+        min-width: 250px;
+      }
+
+      .footer-section h3 {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        color: var(--gold);
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .footer-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        line-height: 1.6;
+        color: floralwhite;
+        margin-bottom: 15px;
+        font-family: Delius;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-section ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .footer-section ul li:hover {
+        padding-left: 15px;
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .footer-section a {
+        color: floralwhite;
+        text-decoration: none;
+        transition: var(--transition);
+        font-family: Delius;
+      }
+
+      .footer-section a:hover {
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .contact-info-item i {
+        width: 25px;
+        margin-right: 12px;
+        color: var(--gold);
+        font-size: 1.1rem;
+      }
+
+      .social-footer-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .social-footer-links a {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(45deg, #11124a, #1a1d5a);
+        border-radius: 50%;
+        text-align: center;
+        line-height: 45px;
+        transition: var(--transition);
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        box-shadow: 0 4px 15px rgba(17, 18, 74, 0.3);
+      }
+
+      .social-footer-links a:hover {
+        background: var(--hover-gradient);
+        color: var(--primary-text);
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(254, 163, 170, 0.4);
+        border-color: var(--gold);
+      }
+
+      .footer-logo-img {
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+      }
+
+      .footer-logo-img:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+      }
+
+      .footer-bottom-section {
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 2px solid rgba(255, 215, 0, 0.3);
+        text-align: center;
+      }
+
+      .footer-bottom-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        color: var(--gold);
+        font-family: Delius;
+        font-weight: bold;
+      }
+
+      /* Pagination Styles */
+      .pagination-container {
+        margin-top: 50px;
+        margin-bottom: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .pagination {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .pagination-btn {
+        padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--primary-text);
+        border: 2px solid rgba(99, 102, 241, 0.2);
+        border-radius: 10px;
+        cursor: pointer;
+        font-family: Delius;
+        font-weight: 600;
+        font-size: 15px;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .pagination-btn:hover:not(:disabled) {
+        background: var(--gold);
+        color: var(--primary-text);
+        border-color: var(--gold);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+      }
+
+      .pagination-btn.active {
+        background: linear-gradient(45deg, #3e476f, #5a6491);
+        color: white;
+        border-color: #3e476f;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+      }
+
+      .pagination-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .pagination-btn.page-number {
+        min-width: 45px;
+        justify-content: center;
+      }
+
+      .pagination-dots {
+        color: var(--white);
+        font-weight: bold;
+        padding: 0 5px;
+      }
+
+      @media screen and (max-width: 576px) {
+        .pagination-btn {
+          padding: 10px 15px;
+          font-size: 14px;
+        }
+
+        .pagination-btn.page-number {
+          min-width: 40px;
+        }
+      }
+
+      /* Media Queries */
+      @media screen and (max-width: 768px) {
+        .topnav {
+          padding: 0 5px;
+          position: relative;
+          min-height: 50px;
+        }
+
+        .topnav a:not(.active):not(.cart-icon):not(.icon) {
+          display: none;
+          clear: both;
+          width: 100%;
+        }
+
+        .topnav a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        /* Fixed position for Cart Icon - always on extreme right */
+        .topnav .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        /* Fixed position for Hamburger Icon - left of cart */
+        .topnav a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          display: block !important;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 1.2rem;
+          color: var(--primary-text);
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .topnav a {
+          margin: 5px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .topnav.responsive {
+          position: relative;
+        }
+
+        /* Keep active link in place on extreme left */
+        .topnav.responsive a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        /* Cart Icon stays fixed on extreme right */
+        .topnav.responsive .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+        }
+
+        /* Hamburger Icon stays fixed left of cart */
+        .topnav.responsive a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          color: var(--gold);
+          background: linear-gradient(45deg, #3e476f, #5a6491);
+          margin: 8px 3px;
+        }
+
+        /* Expanded menu items appear below the first row */
+        .topnav.responsive a:not(.active):not(.icon):not(.cart-icon) {
+          display: block;
+          float: none;
+          text-align: left;
+          width: 100%;
+          clear: both;
+          margin: 5px 10px;
+        }
+
+        .topnav.responsive
+          a:not(.active):not(.icon):not(.cart-icon):first-of-type {
+          padding-top: 0;
+          margin-top: 50px;
+        }
+
+        .product-cards {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 20px;
+        }
+
+        .filter-search {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .search-container,
+        .filter-container {
+          max-width: 100%;
+          min-width: 100%;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 25px;
+        }
+
+        .footer-section {
+          text-align: center;
+          min-width: auto;
+        }
+
+        .social-footer-links {
+          justify-content: center;
+        }
+      }
+
+      @media screen and (max-width: 992px) {
+        .product-cards {
+          grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+          gap: 25px;
+        }
+
+        .product-container {
+          padding: 30px 20px;
+          margin: 30px 15px;
+        }
+      }
+
+      @media screen and (max-width: 576px) {
+        .product-cards {
+          grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+          gap: 15px;
+        }
+
+        .product-card {
+          padding: 16px;
+        }
+
+        .product-container {
+          padding: 20px 15px;
+          margin: 20px 10px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div class="topnav" id="myTopnav">
+      <a href="Cake.html">Home</a>
+      <a href="Products_cakes.html" class="active">Products</a>
+      <a href="Cake.html">About Me</a>
+      <a href="Cake.html">Reviews</a>
+      <a href="Cake.html">Contact Us</a>
+      <a href="special_order_cake.html">Special Order</a>
+
+      <a href="Cart_cake.html" class="cart-icon">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">(0)</span>
+      </a>
+
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+
+    <!-- Add this right after <body> tag -->
+    <div id="notification" class="notification">
+      <i class="fa fa-check-circle"></i>
+      <span id="notification-text">Product added to cart!</span>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <div class="product-container">
+      <div class="filter-search">
+        <div class="search-container">
+          <input type="text" id="search" placeholder="Search products..." />
+        </div>
+        <div class="filter-container">
+          <select id="filter">
+            <option value="">All Products</option>
+            <option value="tag1">Chocolate</option>
+            <option value="tag2">Vanilla</option>
+            <option value="tag3">Custom Cake</option>
+            <option value="tag4">Rich Chocolate Truffle</option>
+            <option value="tag5">Occasion Cake</option>
+            <option value="tag6">Flavoured Cakes</option>
+            <option value="tag7">Traditional Fusion Cakes</option>
+            <option value="tag8">Red Velvet Cake</option>
+            <option value="tag9">Dry Cakes</option>
+            <option value="tag10">Theme Cakes (Fondant or Chocolate)</option>
+            <option value="tag11">Fondant & Semi Fondant Cake</option>
+            <option value="tag12">Multi-Tier Cake</option>
+            <option value="tag13">Low Sugar Cake</option>
+            <option value="tag14">Diabetic Cake</option>
+            <option value="tag15">Cheese Cake</option>
+            <option value="tag16">Donuts</option>
+            <option value="tag17">Cupcakes</option>
+            <option value="tag18">Macroons</option>
+            <option value="tag19">Brownies</option>
+            <option value="tag20">Special Occasion Sweets</option>
+          </select>
+        </div>
+      </div>
+
+      <h2>Our Products</h2>
+      <div class="product-cards">
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Biscoff Cake"
+            alt="Chocolate Biscoff Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Biscoff Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Hazelnut Cake"
+            alt="Chocolate Hazelnut Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Hazelnut Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Nutella Cake"
+            alt="Chocolate Nutella Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Nutella Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Ganache Cake"
+            alt="Chocolate Ganache Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Ganache Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Kitkat Cake"
+            alt="Chocolate Kitkat Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Kitkat Cake</h3>
+          <p id="base-price" style="display: none">1250.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1250.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Photo Cake"
+            alt="Chocolate Photo Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Photo Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Choco Chip Cake"
+            alt="Chocolate Choco Chip Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Choco Chip Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Raspberry Cake"
+            alt="Chocolate Raspberry Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Raspberry Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Oreo Cake"
+            alt="Chocolate Oreo Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Oreo Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Peanut Butter Cake"
+            alt="Chocolate Peanut Butter Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Peanut Butter Cake</h3>
+          <p id="base-price" style="display: none">1450.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1450.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Gems Cake"
+            alt="Chocolate Gems Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Gems Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Caramel Cake"
+            alt="Chocolate Caramel Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Caramel Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag1">
+          <img
+            src="Chocolate Ferrero Rocher Cake"
+            alt="Chocolate Ferrero Rocher Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Ferrero Rocher Cake</h3>
+          <p id="base-price" style="display: none">1450.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1450.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Caramel Cake"
+            alt="Vanilla Caramel Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Caramel Cake</h3>
+          <p id="base-price" style="display: none">1200.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1200.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla English Toffee Cake"
+            alt="Vanilla English Toffee Cake"
+            class="product-image"
+          />
+          <h3>Vanilla English Toffee Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Butterscotch Cake"
+            alt="Vanilla Butterscotch Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Butterscotch Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Raspberry Cake"
+            alt="Vanilla Raspberry Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Raspberry Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Pineapple Cake"
+            alt="Vanilla Pineapple Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Pineapple Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Mango Cake"
+            alt="Vanilla Mango Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Mango Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="D:\Business Ideas\Food Business Website Files\Products Cake\Donuts\Donuts.jpeg"
+            alt="Chocolate Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Blueberry cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Kulfi Falooda Cake"
+            alt="Vanilla Kulfi Falooda Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Kulfi Falooda Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Biscoff Cake"
+            alt="Vanilla Biscoff Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Biscoff Cake</h3>
+          <p id="base-price" style="display: none">1400.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1400.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag2">
+          <img
+            src="Vanilla Strawberry Cake"
+            alt="Vanilla Strawberry Cake"
+            class="product-image"
+          />
+          <h3>Vanilla Strawberry Cake</h3>
+          <p id="base-price" style="display: none">1300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1300.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Spiderman Semi Fondant Cake"
+            alt="Spiderman Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Spiderman Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1100.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1100.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Baby Balloon Semi Fondant Cake"
+            alt="Baby Balloon Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Baby Balloon Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1200.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1200.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Football Theme Semi Fondant Cake"
+            alt="Football Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Football Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1250.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1250.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Makeup kit Theme Semi Fondant Cake"
+            alt="Makeup kit Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Makeup kit Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1280.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1280.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Bear Block Theme Semi Fondant Cake"
+            alt="Bear Block Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Bear Block Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Music Theme Semi Fondant Cake"
+            alt="Music Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Music Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Color Palette Theme Semi Fondant Cake"
+            alt="Color Palette Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Color Palette Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1100.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1100.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Doctor Theme Semi Fondant Cake"
+            alt="Doctor Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Doctor Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1200.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1200.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Biology Theme Semi Fondant Cake"
+            alt="Biology Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Biology Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1200.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1200.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Gym Theme Semi Fondant Cake"
+            alt="Gym Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Gym Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1100.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1100.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Creative Architect Theme Semi Fondant Cake"
+            alt="Creative Architect Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Creative Architect Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1100.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1100.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Unicorn Theme Semi Fondant Cake"
+            alt="Unicorn Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Unicorn Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Solar System Theme Semi Fondant Cake"
+            alt="Solar System Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Solar System Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1270.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1270.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Cricket Pitch Theme Semi Fondant Cake"
+            alt="Cricket Pitch Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Cricket Pitch Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1100.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1100.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Car Theme Semi Fondant Cake"
+            alt="Car Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Car Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Half Year Baby Theme Semi Fondant Cake"
+            alt="Half Year Baby Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Half Year Baby Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Best Dad Theme Semi Fondant Cake"
+            alt="Best Dad Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Best Dad Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Best Mom Theme Semi Fondant Cake"
+            alt="Best Mom Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Best Mom Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Minion Theme Semi Fondant Cake"
+            alt="Minion Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Minion Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1200.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1200.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Angry Bird Theme Semi Fondant Cake"
+            alt="Angry Bird Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Angry Bird Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1150.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1150.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Boss Theme Semi Fondant Cake"
+            alt="Boss Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Boss Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1100.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1100.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Ironman Theme Semi Fondant Cake"
+            alt="Ironman Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Ironman Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1000.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1000.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Rider Theme Semi Fondant Cake"
+            alt="Rider Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Rider Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1250.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1250.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Ludoo Theme Semi Fondant Cake"
+            alt="Ludoo Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Ludoo Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1150.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1150.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag11">
+          <img
+            src="Airplane Theme Semi Fondant Cake"
+            alt="Airplane Theme Semi Fondant Cake"
+            class="product-image"
+          />
+          <h3>Airplane Theme Semi Fondant Cake</h3>
+          <p id="base-price" style="display: none">1250.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">1250.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="0.5">500 gm</option>
+            <option value="1">1 kg</option>
+            <option value="1.5">1.5 kg</option>
+            <option value="2">2 kg</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Biscoff Cheese Cake"
+            alt="Biscoff Cheese Cake"
+            class="product-image"
+          />
+          <h3>Biscoff Cheese Cake</h3>
+          <p id="base-price" style="display: none">255.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">510.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Mango Cheese Cake"
+            alt="Mango Cheese Cake"
+            class="product-image"
+          />
+          <h3>Mango Cheese Cake</h3>
+          <p id="base-price" style="display: none">195.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">390.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Blueberry Cheese Cake"
+            alt="Blueberry Cheese Cake"
+            class="product-image"
+          />
+          <h3>Blueberry Cheese Cake</h3>
+          <p id="base-price" style="display: none">265.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">530.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="New York Cheese Cake"
+            alt="New York Cheese Cake"
+            class="product-image"
+          />
+          <h3>New York Cheese Cake</h3>
+          <p id="base-price" style="display: none">295.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">590.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Chocolate Cheese Cake"
+            alt="Chocolate Cheese Cake"
+            class="product-image"
+          />
+          <h3>Chocolate Cheese Cake</h3>
+          <p id="base-price" style="display: none">275.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">550.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Nutella Cheese Cake"
+            alt="Nutella Cheese Cake"
+            class="product-image"
+          />
+          <h3>Nutella Cheese Cake</h3>
+          <p id="base-price" style="display: none">275.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">550.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Rasmalai Cheese Cake"
+            alt="Rasmalai Cheese Cake"
+            class="product-image"
+          />
+          <h3>Rasmalai Cheese Cake</h3>
+          <p id="base-price" style="display: none">345.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">690.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Thandai Cheese Cake"
+            alt="Thandai Cheese Cake"
+            class="product-image"
+          />
+          <h3>Thandai Cheese Cake</h3>
+          <p id="base-price" style="display: none">345.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">690.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Espresso Cheese Cake"
+            alt="Espresso Cheese Cake"
+            class="product-image"
+          />
+          <h3>Espresso Cheese Cake</h3>
+          <p id="base-price" style="display: none">245.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">490.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Oreo Cheese Cake"
+            alt="Oreo Cheese Cake"
+            class="product-image"
+          />
+          <h3>Oreo Cheese Cake</h3>
+          <p id="base-price" style="display: none">185.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">370.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Lemon Cheese Cake"
+            alt="Lemon Cheese Cake"
+            class="product-image"
+          />
+          <h3>Lemon Cheese Cake</h3>
+          <p id="base-price" style="display: none">195.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">390.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Raspberry Cheese Cake"
+            alt="Raspberry Cheese Cake"
+            class="product-image"
+          />
+          <h3>Raspberry Cheese Cake</h3>
+          <p id="base-price" style="display: none">185.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">370.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Peanut butter Cheese Cake"
+            alt="Peanut butter Cheese Cake"
+            class="product-image"
+          />
+          <h3>Peanut butter Cheese Cake</h3>
+          <p id="base-price" style="display: none">195.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">390.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Fig Mawa Cheese Cake"
+            alt="Fig Mawa Cheese Cake"
+            class="product-image"
+          />
+          <h3>Fig Mawa Cheese Cake</h3>
+          <p id="base-price" style="display: none">245.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">490.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Red Velvet Cheese Cake"
+            alt="Red Velvet Cheese Cake"
+            class="product-image"
+          />
+          <h3>Red Velvet Cheese Cake</h3>
+          <p id="base-price" style="display: none">300.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">600.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Mix Berry Cheese Cake.jpg"
+            alt="Mixed Berry Cheese Cake"
+            class="product-image"
+          />
+          <h3>Mixed Berry Cheese Cake</h3>
+          <p id="base-price" style="display: none">305.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">610.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+
+        <div class="product-card" data-product-id="" data-tag="tag15">
+          <img
+            src="Strawberry Cheese Cake.jpg"
+            alt="Strawberry Cheese Cake"
+            class="product-image"
+          />
+          <h3>Strawberry Cheese Cake</h3>
+          <p id="base-price" style="display: none">195.00</p>
+          <!-- Base price per kg -->
+          <p>Price: ₹<span class="price">390.00</span></p>
+
+          <label for="weight">Choose weight:</label>
+          <select class="weight-selector">
+            <option value="1">1 piece</option>
+            <option value="3">3 piece</option>
+            <option value="5">5 piece</option>
+            <option value="7">7 piece</option>
+          </select>
+
+          <div class="quantity-control" style="display: none">
+            <button class="minus">-</button>
+            <span class="quantity">0</span>
+            <button class="plus">+</button>
+          </div>
+          <button class="add-to-cart">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <!-- Professional Business Footer -->
+    <footer class="business-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img
+            src="Cake_Logo.jpg"
+            alt="PassionBakeryNChocos Logo"
+            class="footer-logo-img"
+          />
+          <h3>PassionBakeryNChocos</h3>
+          <p>
+            Crafting sweet memories with every bite. We specialize in custom
+            cakes, homemade chocolates, and unique gift items made with pure
+            vegetarian ingredients in the most hygienic environment.
+          </p>
+          <div class="social-footer-links">
+            <a
+              href="https://www.facebook.com/share/17UMkLQ8Kb/"
+              target="_blank"
+              title="Facebook"
+              ><i class="fa fa-facebook"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/passionbakerynchoco15?igsh=NTA4NmNsZDNjd2Rp"
+              target="_blank"
+              title="Instagram"
+              ><i class="fa fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/919869153017"
+              target="_blank"
+              title="WhatsApp"
+              ><i class="fa fa-whatsapp"></i
+            ></a>
+            <a href="https://pin.it/5SXLo07ns" target="_blank" title="Pinterest"
+              ><i class="fa fa-pinterest"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="Cake.html">Home</a></li>
+            <li><a href="Products_cakes.html">Cakes Collection</a></li>
+            <li><a href="index.html">Homemade Chocolates</a></li>
+            <li><a href="Gift.html">Gift Items</a></li>
+            <li><a href="special_order_cake.html">Special Orders</a></li>
+            <li><a href="Cart_cake.html">Shopping Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Our Specialties</h3>
+          <ul>
+            <li>Custom Birthday Cakes</li>
+            <li>Wedding & Anniversary Cakes</li>
+            <li>Festival Special Treats</li>
+            <li>Corporate Gifts & Bulk Orders</li>
+            <li>Homemade Chocolates</li>
+            <li>Personalized Gift Hampers</li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Get In Touch</h3>
+          <div class="contact-info-item">
+            <i class="fa fa-envelope"></i>
+            <span>manjupathak135@gmail.com</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-phone"></i>
+            <span>+91 9869153017</span>
+            <!-- <span>+91 6376027550</span> -->
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-clock-o"></i>
+            <span>Available: 9AM - 6PM Daily</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-map-marker"></i>
+            <span>Mumbai, Maharashtra, India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-section">
+        <p>
+          &copy; 2024 PassionBakeryNChocos. All rights reserved. Made with love
+          for sweet celebrations! ❤️
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // ================================
+      // NOTIFICATION SYSTEM
+      // ================================
+
+      /**
+       * Show notification with custom message and type
+       */
+      const showNotification = (message, type = "added") => {
+        const notification = document.getElementById("notification");
+        const notificationText = document.getElementById("notification-text");
+        const icon = notification.querySelector("i");
+
+        // Set text and icon based on type
+        notificationText.textContent = message;
+
+        if (type === "added") {
+          icon.className = "fa fa-check-circle";
+          notification.classList.remove("removed");
+          notification.classList.add("added");
+        } else if (type === "removed") {
+          icon.className = "fa fa-trash";
+          notification.classList.remove("added");
+          notification.classList.add("removed");
+        }
+
+        // Show notification
+        notification.classList.remove("hide");
+        notification.classList.add("show");
+
+        // Auto-hide after 3 seconds
+        setTimeout(() => {
+          notification.classList.remove("show");
+          notification.classList.add("hide");
+        }, 3000);
+      };
+
+      // ================================
+      // NAVIGATION FUNCTIONALITY
+      // ================================
+
+      /**
+       * Toggle responsive navigation menu on mobile devices
+       */
+      function myFunction() {
+        const nav = document.getElementById("myTopnav");
+        nav.className =
+          nav.className === "topnav" ? "topnav responsive" : "topnav";
+      }
+
+      // ================================
+      // CART DATA MANAGEMENT
+      // ================================
+
+      /**
+       * Load cart data from localStorage
+       */
+      const loadCartData = () =>
+        JSON.parse(localStorage.getItem("CakecartData")) || {};
+
+      /**
+       * Save cart data to localStorage
+       */
+      const saveCartData = (cartData) =>
+        localStorage.setItem("CakecartData", JSON.stringify(cartData));
+
+      /**
+       * Update cart count display in navigation
+       */
+      const updateCartCount = (count) => {
+        document.getElementById("cart-count").textContent = `(${count})`;
+      };
+
+      // ================================
+      // PRICE CALCULATION UTILITIES
+      // ================================
+
+      /**
+       * Extract numeric price from text string
+       */
+      const parsePrice = (priceText) => {
+        const match = priceText.match(/[\d,.]+/);
+        return match ? parseFloat(match[0].replace(",", "")) : 0;
+      };
+
+      /**
+       * Calculate final price based on weight multiplier
+       */
+      const calculatePrice = (basePrice, weight) =>
+        (basePrice * weight).toFixed(2);
+
+      // ================================
+      // PRODUCT FILTERING & SEARCH
+      // ================================
+
+      /**
+       * Filter products based on selected category
+       */
+      const initializeProductFilter = () => {
+        document
+          .getElementById("filter")
+          .addEventListener("change", function () {
+            const selectedTag = this.value;
+            document.querySelectorAll(".product-card").forEach((card) => {
+              card.style.display =
+                selectedTag === "" ||
+                card.getAttribute("data-tag") === selectedTag
+                  ? ""
+                  : "none";
+            });
+            currentPage = 1;
+            updateFilteredCards();
+            renderPagination();
+            showPage(1);
+          });
+      };
+
+      /**
+       * Search products based on input text
+       */
+      const initializeProductSearch = () => {
+        document
+          .getElementById("search")
+          .addEventListener("input", function () {
+            const searchTerm = this.value.toLowerCase();
+            document.querySelectorAll(".product-card").forEach((card) => {
+              const productName = card
+                .querySelector("h3")
+                .textContent.toLowerCase();
+              card.style.display = productName.includes(searchTerm)
+                ? ""
+                : "none";
+            });
+            currentPage = 1;
+            updateFilteredCards();
+            renderPagination();
+            showPage(1);
+          });
+      };
+
+      // ================================
+      // PRODUCT CARD FUNCTIONALITY
+      // ================================
+
+      /**
+       * Initialize individual product card functionality
+       */
+      const initializeProductCards = () => {
+        let cartData = loadCartData();
+        let cartCount = Object.values(cartData).reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        updateCartCount(cartCount);
+
+        document.querySelectorAll(".product-card").forEach((card) => {
+          const addToCartBtn = card.querySelector(".add-to-cart");
+          const quantityControl = card.querySelector(".quantity-control");
+          const quantityDisplay = card.querySelector(".quantity");
+          const plusBtn = card.querySelector(".plus");
+          const minusBtn = card.querySelector(".minus");
+          const weightSelector = card.querySelector(".weight-selector");
+          const priceDisplay = card.querySelector(".price");
+          const productName = card.querySelector("h3").textContent;
+          const basePrice = parsePrice(card.querySelector("p").textContent);
+
+          let quantity = cartData[productName]
+            ? cartData[productName].quantity
+            : 0;
+
+          const updateCartData = () => {
+            const selectedWeight = parseFloat(weightSelector.value);
+            const finalPrice = calculatePrice(basePrice, selectedWeight);
+
+            if (quantity > 0) {
+              cartData[productName] = {
+                price: finalPrice,
+                quantity: quantity,
+                weight: selectedWeight,
+              };
+            } else {
+              delete cartData[productName];
+            }
+
+            saveCartData(cartData);
+            updateCartCount(cartCount);
+          };
+
+          const updateUI = () => {
+            quantityDisplay.textContent = quantity;
+            addToCartBtn.style.display = quantity === 0 ? "block" : "none";
+            quantityControl.style.display = quantity === 0 ? "none" : "flex";
+          };
+
+          const updatePrice = () => {
+            const selectedWeight = parseFloat(weightSelector.value);
+            priceDisplay.textContent = calculatePrice(
+              basePrice,
+              selectedWeight
+            );
+          };
+
+          addToCartBtn.addEventListener("click", () => {
+            quantity = 1;
+            cartCount++;
+            updateCartData();
+            updateUI();
+            showNotification(`${productName} added to cart!`, "added");
+          });
+
+          plusBtn.addEventListener("click", () => {
+            quantity++;
+            cartCount++;
+            updateCartData();
+            updateUI();
+            showNotification(`${productName} quantity increased!`, "added");
+          });
+
+          minusBtn.addEventListener("click", () => {
+            if (quantity > 0) {
+              quantity--;
+              cartCount--;
+              updateCartData();
+              updateUI();
+
+              if (quantity === 0) {
+                showNotification(
+                  `${productName} removed from cart!`,
+                  "removed"
+                );
+              } else {
+                showNotification(
+                  `${productName} quantity decreased!`,
+                  "removed"
+                );
+              }
+            }
+          });
+
+          weightSelector.addEventListener("change", updatePrice);
+
+          updateUI();
+          updatePrice();
+        });
+      };
+
+      // ================================
+      // PAGINATION FUNCTIONALITY
+      // ================================
+
+      const PRODUCTS_PER_PAGE = 12;
+      let currentPage = 1;
+      let filteredCards = [];
+      let allProductCards = [];
+
+      /**
+       * Initialize pagination - Calculate total products and create page groups dynamically
+       */
+      function initializePagination() {
+        allProductCards = Array.from(
+          document.querySelectorAll(".product-card")
+        );
+        updateFilteredCards();
+        renderPagination();
+        showPage(currentPage);
+      }
+
+      /**
+       * Update the list of filtered/visible cards dynamically
+       */
+      function updateFilteredCards() {
+        filteredCards = allProductCards.filter(
+          (card) => card.style.display !== "none"
+        );
+      }
+
+      /**
+       * Show specific page of products (groups of 12)
+       */
+      function showPage(page) {
+        currentPage = page;
+        const totalProducts = filteredCards.length;
+        const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
+
+        // Validate page number
+        if (page < 1 || page > totalPages) return;
+
+        const startIndex = (page - 1) * PRODUCTS_PER_PAGE;
+        const endIndex = startIndex + PRODUCTS_PER_PAGE;
+
+        // Hide all product cards first
+        allProductCards.forEach((card) => {
+          card.style.display = "none";
+        });
+
+        // Show only products for current page (12 products per page)
+        filteredCards.forEach((card, index) => {
+          if (index >= startIndex && index < endIndex) {
+            card.style.display = "";
+          }
+        });
+
+        renderPagination();
+
+        // Scroll to product section
+        document.querySelector(".product-container").scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+
+      /**
+       * Render pagination controls dynamically based on total products
+       */
+      function renderPagination() {
+        const totalProducts = filteredCards.length;
+        const totalPages = Math.ceil(totalProducts / PRODUCTS_PER_PAGE);
+
+        let paginationContainer = document.querySelector(
+          ".pagination-container"
+        );
+        if (!paginationContainer) {
+          paginationContainer = document.createElement("div");
+          paginationContainer.className = "pagination-container";
+          document.querySelector(".product-cards").after(paginationContainer);
+        }
+
+        // Hide pagination if only 1 page or no products
+        if (totalPages <= 1) {
+          paginationContainer.innerHTML = "";
+          return;
+        }
+
+        let paginationHTML = '<div class="pagination">';
+
+        // Previous button
+        paginationHTML += `<button class="pagination-btn" onclick="goToPage(${
+          currentPage - 1
+        })" ${
+          currentPage === 1 ? "disabled" : ""
+        }><i class="fa fa-chevron-left"></i> Previous</button>`;
+
+        // Dynamic page numbers
+        for (let i = 1; i <= totalPages; i++) {
+          if (
+            i === 1 ||
+            i === totalPages ||
+            (i >= currentPage - 1 && i <= currentPage + 1)
+          ) {
+            paginationHTML += `<button class="pagination-btn page-number ${
+              i === currentPage ? "active" : ""
+            }" onclick="goToPage(${i})">${i}</button>`;
+          } else if (i === currentPage - 2 || i === currentPage + 2) {
+            paginationHTML += '<span class="pagination-dots">...</span>';
+          }
+        }
+
+        // Next button
+        paginationHTML += `<button class="pagination-btn" onclick="goToPage(${
+          currentPage + 1
+        })" ${
+          currentPage === totalPages ? "disabled" : ""
+        }>Next <i class="fa fa-chevron-right"></i></button>`;
+
+        paginationHTML += "</div>";
+        paginationContainer.innerHTML = paginationHTML;
+      }
+
+      /**
+       * Navigate to specific page
+       */
+      function goToPage(page) {
+        const totalPages = Math.ceil(filteredCards.length / PRODUCTS_PER_PAGE);
+        if (page < 1 || page > totalPages) return;
+        showPage(page);
+      }
+
+      // ================================
+      // APPLICATION INITIALIZATION
+      // ================================
+
+      /**
+       * Initialize all application functionality
+       */
+      document.addEventListener("DOMContentLoaded", () => {
+        initializeProductCards();
+        initializeProductFilter();
+        initializeProductSearch();
+      });
+
+      if (document.readyState !== "loading") {
+        initializeProductCards();
+        initializeProductFilter();
+        initializeProductSearch();
+      }
+
+      window.addEventListener("load", function () {
+        setTimeout(initializePagination, 100);
+      });
+    </script>
+  </body>
+</html>

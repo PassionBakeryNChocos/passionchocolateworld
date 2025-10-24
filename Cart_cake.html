@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shopping Cart - PassionBakeryNChocos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Delius&family=Diphylleia&family=Great+Vibes&family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ========================================
+   CSS VARIABLES & ROOT CONFIGURATION
+   ======================================== */
+      :root {
+        --primary-gradient: linear-gradient(
+          90deg,
+          rgba(30, 242, 253, 0.95) 0%,
+          rgba(74, 144, 226, 0.95) 100%
+        );
+        --section-gradient: linear-gradient(
+          135deg,
+          #6266f4 0%,
+          #4a54d1 50%,
+          #3d47b8 100%
+        );
+        --button-gradient: linear-gradient(45deg, #11124a, #1a1d5a);
+        --hover-gradient: linear-gradient(45deg, #fea3aa, #ff7b82);
+        --gold: #ffd700;
+        --primary-text: #11124a;
+        --white: #ffffff;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --border-radius: 20px;
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --card-shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      /* ========================================
+   GLOBAL STYLES & RESET
+   ======================================== */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: #1ef2fd;
+        overflow-x: hidden;
+        line-height: 1.6;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        max-width: 100vw;
+      }
+
+      /* ========================================
+   TYPOGRAPHY
+   ======================================== */
+      h1,
+      h2 {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: clamp(1.8rem, 5vw, 3.5rem);
+        text-align: center;
+        margin-bottom: 15px;
+        font-family: Great Vibes;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+      }
+
+      /* ========================================
+   NAVIGATION BAR - ENHANCED WITH STICKY
+   ======================================== */
+      .topnav {
+        overflow: hidden;
+        background: var(--primary-gradient);
+        font-family: Delius;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .topnav a,
+      .topnav .cart-icon {
+        float: left;
+        display: block;
+        color: var(--primary-text);
+        text-align: center;
+        padding: 16px 24px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        border-radius: 12px;
+        margin: 8px 6px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .topnav a:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: var(--transition);
+      }
+
+      .topnav a:hover:before {
+        left: 100%;
+      }
+
+      .topnav a:hover,
+      .topnav .cart-icon:hover {
+        background: linear-gradient(45deg, #0000ff, #4169e1);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      }
+
+      .topnav .cart-icon:hover {
+        transform: translateY(-2px) rotate(5deg);
+      }
+
+      .topnav a.active {
+        background: linear-gradient(45deg, #3e476f, #5a6491);
+        color: white;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        transform: scale(1.05);
+      }
+
+      .topnav .icon {
+        display: none;
+      }
+
+      /* ========================================
+   BORDER IMAGES
+   ======================================== */
+      .border-image {
+        width: min(70%, 600px);
+        height: auto;
+        margin: 20px auto;
+        display: block;
+        animation: imageFloat 6s ease-in-out infinite;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) brightness(1.1)
+          contrast(1.1);
+      }
+
+      /* ========================================
+   EMPTY CART STATE
+   ======================================== */
+      .empty-cart {
+        display: none;
+        text-align: center;
+        padding: 60px 20px;
+        margin: 40px auto;
+        max-width: 600px;
+        background: linear-gradient(
+          135deg,
+          rgba(98, 102, 244, 0.95) 0%,
+          rgba(74, 84, 209, 0.95) 50%,
+          rgba(61, 71, 184, 0.95) 100%
+        );
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(98, 102, 244, 0.4);
+      }
+
+      .empty-cart-icon {
+        font-size: 80px;
+        color: var(--gold);
+        margin-bottom: 20px;
+        animation: bounce 2s infinite;
+      }
+
+      .empty-cart h2 {
+        color: var(--gold);
+        margin-bottom: 15px;
+      }
+
+      .empty-cart p {
+        color: floralwhite;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        margin-bottom: 30px;
+        font-family: Delius;
+      }
+
+      .empty-cart .shop-btn {
+        display: inline-block;
+        padding: 15px 40px;
+        background: linear-gradient(135deg, var(--gold), #ffa500);
+        color: var(--primary-text);
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: bold;
+        font-family: Delius;
+        transition: var(--transition);
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+      }
+
+      .empty-cart .shop-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+      }
+
+      /* ========================================
+   CART SECTION
+   ======================================== */
+      .cart-section {
+        margin: 20px clamp(10px, 3vw, 20px);
+        padding: clamp(30px, 5vw, 40px);
+        background: var(--section-gradient);
+        border-radius: var(--border-radius);
+        font-family: Delius;
+        box-shadow: 0 10px 30px rgba(98, 102, 244, 0.3);
+        backdrop-filter: blur(10px);
+        display: none;
+      }
+
+      .cart-section.has-items {
+        display: block;
+      }
+
+      .cart-section h2 {
+        color: var(--gold);
+        font-family: Great Vibes;
+        font-size: clamp(2rem, 5vw, 2.5rem);
+        text-align: center;
+        margin-bottom: 25px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      /* ========================================
+   TABLE STYLES
+   ======================================== */
+      .table-container {
+        overflow-x: auto;
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.98) 0%,
+          rgba(240, 248, 255, 0.98) 100%
+        );
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      th,
+      td {
+        border: none;
+        padding: 18px 15px;
+        text-align: center;
+        position: relative;
+      }
+
+      th {
+        background: linear-gradient(135deg, #1ef2fd 0%, #4a90e2 100%);
+        color: var(--primary-text);
+        font-weight: bold;
+        font-size: clamp(0.95rem, 2vw, 1.1rem);
+        text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+        border-bottom: 3px solid var(--gold);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      td {
+        background: rgba(255, 255, 255, 0.9);
+        color: var(--primary-text);
+        font-weight: 500;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        border-bottom: 1px solid rgba(99, 102, 241, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      tr:nth-child(even) td {
+        background: rgba(240, 248, 255, 0.9);
+      }
+
+      tr:hover td {
+        background: rgba(255, 215, 0, 0.1);
+        transform: scale(1.01);
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+      }
+
+      .total-row td {
+        background: linear-gradient(
+          135deg,
+          var(--gold) 0%,
+          #ffa500 100%
+        ) !important;
+        color: var(--primary-text) !important;
+        font-weight: bold !important;
+        font-size: clamp(1.1rem, 2.5vw, 1.3rem) !important;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1) !important;
+        border-top: 3px solid #6266f4 !important;
+        padding: 20px 15px !important;
+      }
+
+      .total-row:hover td {
+        transform: none !important;
+      }
+
+      /* ========================================
+   BUTTON STYLES
+   ======================================== */
+      button {
+        background: linear-gradient(135deg, #5cb85c 0%, #4cae4c 100%);
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: clamp(0.85rem, 2vw, 0.95rem);
+        font-family: Delius;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(92, 184, 92, 0.3);
+        position: relative;
+        overflow: hidden;
+        margin: 0 3px;
+      }
+
+      button:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: all 0.5s ease;
+      }
+
+      button:hover:before {
+        left: 100%;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #4cae4c 0%, #5cb85c 100%);
+        transform: translateY(-2px) scale(1.05);
+        box-shadow: 0 8px 25px rgba(92, 184, 92, 0.4);
+      }
+
+      button:active {
+        transform: translateY(0) scale(0.98);
+        box-shadow: 0 2px 10px rgba(92, 184, 92, 0.3);
+      }
+
+      button[onclick*="removeFromCart"] {
+        background: linear-gradient(135deg, #d9534f 0%, #c9302c 100%);
+        box-shadow: 0 4px 15px rgba(217, 83, 79, 0.3);
+      }
+
+      button[onclick*="removeFromCart"]:hover {
+        background: linear-gradient(135deg, #c9302c 0%, #d9534f 100%);
+        box-shadow: 0 8px 25px rgba(217, 83, 79, 0.4);
+      }
+
+      button[onclick*="increaseQuantity"],
+      button[onclick*="decreaseQuantity"] {
+        background: linear-gradient(135deg, #337ab7 0%, #286090 100%);
+        box-shadow: 0 4px 15px rgba(51, 122, 183, 0.3);
+        padding: 8px 12px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        min-width: 35px;
+      }
+
+      button[onclick*="increaseQuantity"]:hover,
+      button[onclick*="decreaseQuantity"]:hover {
+        background: linear-gradient(135deg, #286090 0%, #337ab7 100%);
+        box-shadow: 0 8px 25px rgba(51, 122, 183, 0.4);
+      }
+
+      button[onclick*="scrollToPaymentMethods"] {
+        background: linear-gradient(135deg, var(--gold) 0%, #ffa500 100%);
+        color: var(--primary-text);
+        font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+        padding: 15px 40px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button[onclick*="scrollToPaymentMethods"]:hover {
+        background: linear-gradient(135deg, #ffa500 0%, var(--gold) 100%);
+        transform: translateY(-3px) scale(1.08);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+      }
+
+      /* ========================================
+   PAYMENT METHODS SECTION
+   ======================================== */
+      .payment-methods {
+        margin: 20px clamp(10px, 3vw, 20px);
+        padding: clamp(30px, 5vw, 40px);
+        background: var(--section-gradient);
+        border-radius: var(--border-radius);
+        text-align: center;
+        font-family: Delius;
+        box-shadow: 0 10px 30px rgba(98, 102, 244, 0.3);
+        display: none;
+      }
+
+      .payment-methods.visible {
+        display: block;
+      }
+
+      .payment-methods h2 {
+        color: var(--gold);
+        margin-bottom: 20px;
+      }
+
+      .payment-methods p {
+        color: floralwhite;
+        font-weight: 500;
+        margin-bottom: 15px;
+        font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+        line-height: 1.8;
+      }
+
+      .payment-methods img {
+        width: 80px;
+        margin: 0 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .payment-methods img:hover {
+        transform: scale(1.2);
+      }
+
+      #gpay-button,
+      #paytm-button {
+        background: linear-gradient(135deg, #5cb85c 0%, #4cae4c 100%);
+        color: white;
+        padding: 14px 30px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        display: block;
+        margin: 15px auto;
+        font-family: Delius;
+        font-weight: bold;
+        font-size: 1rem;
+        box-shadow: 0 4px 15px rgba(92, 184, 92, 0.3);
+        transition: var(--transition);
+      }
+
+      #gpay-button:hover,
+      #paytm-button:hover {
+        background: linear-gradient(135deg, #4cae4c 0%, #5cb85c 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(92, 184, 92, 0.4);
+      }
+
+      #upi-id {
+        color: var(--gold);
+        display: none;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        font-weight: bold;
+        margin-top: 15px;
+        padding: 15px;
+        background: rgba(255, 215, 0, 0.1);
+        border-radius: 10px;
+        border: 2px dashed var(--gold);
+      }
+
+      #qr-code {
+        display: none;
+        margin-top: 20px;
+        width: min(400px, 90%);
+        height: auto;
+        border: 3px solid var(--gold);
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* ========================================
+   SUCCESS SECTION
+   ======================================== */
+      .success-section {
+        max-width: 900px;
+        width: 90%;
+        margin: 40px auto;
+        padding: clamp(40px, 6vw, 60px);
+        background: var(--section-gradient);
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(92, 184, 92, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        backdrop-filter: blur(10px);
+        text-align: center;
+        display: none;
+      }
+
+      .success-section.visible {
+        display: block;
+        animation: fadeInScale 0.6s ease-out;
+      }
+
+      .success-icon {
+        font-size: 80px;
+        color: white;
+        margin-bottom: 20px;
+        animation: successPulse 2s ease-in-out infinite;
+      }
+
+      .success-section h2 {
+        color: white;
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .success-section p {
+        color: floralwhite;
+        font-size: clamp(1.1rem, 3vw, 1.4rem);
+        margin-bottom: 40px;
+        font-family: Delius;
+        font-weight: 600;
+        line-height: 1.8;
+      }
+
+      .success-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 30px;
+      }
+
+      .success-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 18px 40px;
+        background: linear-gradient(135deg, var(--gold) 0%, #ffa500 100%);
+        color: var(--primary-text);
+        text-decoration: none;
+        border-radius: 12px;
+        font-weight: bold;
+        font-family: Delius;
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+        border: 2px solid white;
+      }
+
+      .success-btn:hover {
+        background: linear-gradient(135deg, #ffa500 0%, var(--gold) 100%);
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 12px 35px rgba(255, 215, 0, 0.6);
+      }
+
+      .success-btn i {
+        font-size: 1.3em;
+      }
+
+      /* ========================================
+   PAYMENT FORM
+   ======================================== */
+      .payment-form {
+        max-width: 900px;
+        width: 90%;
+        margin: 40px auto;
+        padding: clamp(30px, 5vw, 50px);
+        background: linear-gradient(
+          135deg,
+          rgba(98, 102, 244, 0.98) 0%,
+          rgba(74, 84, 209, 0.98) 50%,
+          rgba(61, 71, 184, 0.98) 100%
+        );
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(98, 102, 244, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+        display: none;
+        transition: all 0.5s ease;
+      }
+
+      .payment-form.visible {
+        display: block;
+        animation: fadeInUp 0.6s ease-out;
+      }
+
+      .payment-form.hidden {
+        display: none;
+      }
+
+      .payment-form::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold), #ffa500, var(--gold));
+        animation: shimmer 3s infinite;
+      }
+
+      .payment-form h2 {
+        color: var(--gold);
+        margin-bottom: 15px;
+        position: relative;
+        padding-bottom: 20px;
+      }
+
+      .payment-form h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        border-radius: 2px;
+      }
+
+      .payment-form > p {
+        color: floralwhite;
+        font-weight: bold;
+        font-family: Delius;
+        margin-bottom: 30px;
+        font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+        line-height: 1.8;
+        text-align: center;
+      }
+
+      .payment-form h1 {
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        margin-bottom: 30px;
+      }
+
+      /* ========================================
+   FORM CONTAINER & ELEMENTS
+   ======================================== */
+      .container {
+        max-width: 100%;
+        margin: 20px auto;
+        background: rgba(255, 255, 255, 0.98);
+        color: var(--primary-text);
+        padding: clamp(20px, 4vw, 30px);
+        font-family: Delius;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+        position: relative;
+        animation: fadeInUp 0.6s ease-out backwards;
+      }
+
+      .form-group:nth-child(1) {
+        animation-delay: 0.05s;
+      }
+      .form-group:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .form-group:nth-child(3) {
+        animation-delay: 0.15s;
+      }
+      .form-group:nth-child(4) {
+        animation-delay: 0.2s;
+      }
+      .form-group:nth-child(5) {
+        animation-delay: 0.25s;
+      }
+      .form-group:nth-child(6) {
+        animation-delay: 0.3s;
+      }
+      .form-group:nth-child(7) {
+        animation-delay: 0.35s;
+      }
+      .form-group:nth-child(8) {
+        animation-delay: 0.4s;
+      }
+      .form-group:nth-child(9) {
+        animation-delay: 0.45s;
+      }
+      .form-group:nth-child(10) {
+        animation-delay: 0.5s;
+      }
+      .form-group:nth-child(11) {
+        animation-delay: 0.55s;
+      }
+      .form-group:nth-child(12) {
+        animation-delay: 0.6s;
+      }
+
+      /* NEW: Hidden conditional fields */
+      .conditional-fields {
+        display: none;
+        margin-top: 20px;
+        padding: 20px;
+        background: rgba(74, 144, 226, 0.1);
+        border-radius: 12px;
+        border: 2px dashed rgba(74, 144, 226, 0.3);
+      }
+
+      .conditional-fields.visible {
+        display: block;
+        animation: fadeInUp 0.4s ease-out;
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--primary-text);
+        font-size: clamp(0.9rem, 2vw, 1rem);
+      }
+
+      label::before {
+        content: "◆";
+        color: #4a90e2;
+        font-size: 0.7em;
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="number"],
+      input[type="date"],
+      input[type="time"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid rgba(99, 102, 241, 0.2);
+        border-radius: 10px;
+        box-sizing: border-box;
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--primary-text);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      input[type="text"]:focus,
+      input[type="tel"]:focus,
+      input[type="number"]:focus,
+      input[type="date"]:focus,
+      input[type="time"]:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #4a90e2;
+        background: white;
+        box-shadow: 0 4px 20px rgba(74, 144, 226, 0.2),
+          0 0 0 4px rgba(74, 144, 226, 0.1);
+        transform: translateY(-2px);
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: rgba(17, 18, 74, 0.4);
+        font-style: italic;
+      }
+
+      select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%234a90e2' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        padding-right: 45px;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+        line-height: 1.6;
+      }
+
+      .container button[type="button"] {
+        background: linear-gradient(135deg, var(--gold) 0%, #ffa500 100%);
+        color: var(--primary-text);
+        padding: 16px 32px;
+        width: 100%;
+        font-size: clamp(1rem, 2.5vw, 1.15rem);
+        border-radius: 12px;
+        margin-top: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+      }
+
+      .container button[type="button"]:hover {
+        background: linear-gradient(135deg, #ffa500 0%, var(--gold) 100%);
+        box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5);
+      }
+
+      /* ========================================
+   FOOTER
+   ======================================== */
+      .business-footer {
+        background: linear-gradient(
+          135deg,
+          #0000ff 0%,
+          #1e3a8a 50%,
+          #1e40af 100%
+        );
+        color: floralwhite;
+        padding: clamp(40px, 6vw, 60px) clamp(15px, 4vw, 20px)
+          clamp(20px, 3vw, 30px);
+        font-family: Delius;
+        border-top: 4px solid var(--gold);
+        box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.2);
+        margin-top: 50px;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: clamp(25px, 5vw, 40px);
+      }
+
+      .footer-section {
+        flex: 1 1 280px;
+        min-width: 250px;
+      }
+
+      .footer-section h3 {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        color: var(--gold);
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .footer-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        line-height: 1.6;
+        color: floralwhite;
+        margin-bottom: 15px;
+        font-family: Delius;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-section ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .footer-section ul li:hover {
+        padding-left: 15px;
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .footer-section a {
+        color: floralwhite;
+        text-decoration: none;
+        transition: var(--transition);
+        font-family: Delius;
+      }
+
+      .footer-section a:hover {
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .contact-info-item i {
+        width: 25px;
+        margin-right: 12px;
+        color: var(--gold);
+        font-size: 1.1rem;
+      }
+
+      .social-footer-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .social-footer-links a {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(45deg, #11124a, #1a1d5a);
+        border-radius: 50%;
+        text-align: center;
+        line-height: 45px;
+        transition: var(--transition);
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        box-shadow: 0 4px 15px rgba(17, 18, 74, 0.3);
+      }
+
+      .social-footer-links a:hover {
+        background: var(--hover-gradient);
+        color: var(--primary-text);
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(254, 163, 170, 0.4);
+        border-color: var(--gold);
+      }
+
+      .footer-logo-img {
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+      }
+
+      .footer-logo-img:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+      }
+
+      .footer-bottom-section {
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 2px solid rgba(255, 215, 0, 0.3);
+        text-align: center;
+      }
+
+      .footer-bottom-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        color: var(--gold);
+        font-family: Delius;
+        font-weight: bold;
+      }
+
+      /* ========================================
+   ANIMATIONS
+   ======================================== */
+      @keyframes titleGlow {
+        from {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        to {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 215, 0, 0.6);
+        }
+      }
+
+      @keyframes imageFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-20px);
+        }
+      }
+
+      @keyframes fadeInScale {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes successPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ========================================
+   RESPONSIVE MEDIA QUERIES
+   ======================================== */
+      @media screen and (max-width: 768px) {
+        .topnav {
+          padding: 0 5px;
+          position: relative;
+          min-height: 50px;
+        }
+
+        .topnav a:not(.active):not(.cart-icon):not(.icon) {
+          display: none;
+          clear: both;
+          width: 100%;
+        }
+
+        .topnav a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        /* Fixed position for Cart Icon - always on extreme right */
+        .topnav .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        /* Fixed position for Hamburger Icon - left of cart */
+        .topnav a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          display: block !important;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 1.2rem;
+          color: var(--primary-text);
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .topnav a {
+          margin: 5px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .topnav.responsive {
+          position: relative;
+        }
+
+        /* Keep active link in place on extreme left */
+        .topnav.responsive a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        /* Cart Icon stays fixed on extreme right */
+        .topnav.responsive .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+        }
+
+        /* Hamburger Icon stays fixed left of cart */
+        .topnav.responsive a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          color: var(--gold);
+          background: linear-gradient(45deg, #3e476f, #5a6491);
+          margin: 8px 3px;
+        }
+
+        /* Expanded menu items appear below the first row */
+        .topnav.responsive a:not(.active):not(.icon):not(.cart-icon) {
+          display: block;
+          float: none;
+          text-align: left;
+          width: 100%;
+          clear: both;
+          margin: 5px 10px;
+        }
+
+        .topnav.responsive
+          a:not(.active):not(.icon):not(.cart-icon):first-of-type {
+          padding-top: 0;
+          margin-top: 50px;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .container {
+          padding: 15px;
+        }
+
+        .cart-section,
+        .payment-methods,
+        .payment-form {
+          margin: 15px auto;
+          padding: 20px 15px;
+        }
+
+        th,
+        td {
+          padding: 10px 5px;
+          font-size: 0.8rem;
+        }
+
+        button[onclick*="increaseQuantity"],
+        button[onclick*="decreaseQuantity"] {
+          padding: 6px 8px;
+          min-width: 30px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .payment-form,
+        .cart-section {
+          border-radius: 18px;
+        }
+
+        .empty-cart-icon {
+          font-size: 60px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <div class="topnav" id="myTopnav">
+      <a href="Cake.html">Home</a>
+      <a href="Products_cakes.html">Products</a>
+      <a href="Cake.html">About Me</a>
+      <a href="Cake.html">Reviews</a>
+      <a href="Cake.html">Contact Us</a>
+      <a href="special_order_cake.html" class="active">Special Order</a>
+
+      <a href="Cart_cake.html" class="cart-icon">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">(0)</span>
+      </a>
+
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <!-- Empty Cart State -->
+    <div class="empty-cart" id="empty-cart">
+      <div class="empty-cart-icon">
+        <i class="fa fa-shopping-cart"></i>
+      </div>
+      <h2>Your Cart is Empty</h2>
+      <p>
+        Add some delicious products to your cart to see the total and proceed to
+        checkout!
+      </p>
+      <a href="Products_cakes.html" class="shop-btn">
+        <i class="fa fa-shopping-bag"></i> Start Shopping
+      </a>
+    </div>
+
+    <!-- Cart Section -->
+    <div class="cart-section" id="cart-section">
+      <h2>Your Cart</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Sr No</th>
+              <th>Product Name</th>
+              <th>Weight</th>
+              <th>Price</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="cart-table-body">
+            <!-- Cart items will be populated here -->
+          </tbody>
+          <tfoot>
+            <tr class="total-row">
+              <td colspan="3">Total Amount</td>
+              <td id="total-amount">₹0.00</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <div style="text-align: center; margin-top: 20px">
+        <button onclick="scrollToPaymentMethods()">
+          <i class="fa fa-credit-card"></i> Checkout
+        </button>
+      </div>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <!-- Payment Methods Section -->
+    <div class="payment-methods" id="payment-methods">
+      <h2>Payment Methods</h2>
+      <p style="color: floralwhite; margin-bottom: 15px">
+        You can pay by the below given methods. After Payment kindly fill the
+        form below, and share the screenshot of payment with the response for
+        confirmation of your order.
+      </p>
+      <p style="color: white; font-weight: bold; font-style: italic">
+        Kindly note that paying 50% of the total amount is necessary for the
+        order confirmation.
+      </p>
+      <button id="gpay-button" onclick="toggleUPI()">
+        <i class="fa fa-mobile"></i> Pay with UPI ID
+      </button>
+      <p id="upi-id">Our UPI ID: manjupathak135@okicici</p>
+
+      <button id="paytm-button" onclick="toggleQRCode()">
+        <i class="fa fa-qrcode"></i> Pay with QR Code Image
+      </button>
+      <img id="qr-code" src="qr code.jpg" alt="QR Code" />
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <!-- Success Section -->
+    <div class="success-section" id="success-section">
+      <div class="success-icon">
+        <i class="fa fa-check-circle"></i>
+      </div>
+      <h2>Order Received Successfully!</h2>
+      <p>
+        Thank you for your order! We've received your details and will start
+        preparing your delicious treats right away.
+      </p>
+      <p style="font-size: clamp(1rem, 2.5vw, 1.2rem); margin-top: 20px">
+        While you wait, explore our other amazing offerings!
+      </p>
+      <div class="success-buttons">
+        <a href="index.html" class="success-btn">
+          <i class="fa fa-heart"></i>
+          Browse Chocolates
+        </a>
+        <a href="Gift.html" class="success-btn">
+          <i class="fa fa-gift"></i>
+          Explore Gift Items
+        </a>
+      </div>
+    </div>
+
+    <!-- Payment Form Container -->
+    <div class="payment-form" id="payment-form">
+      <h2>Payment Confirmation Form</h2>
+      <p style="font-weight: bold; color: floralwhite; font-family: Delius">
+        After going through the payment using any of the above methods, kindly
+        fill the form below for payment confirmation, while your order is on the
+        way!!
+      </p>
+      <h1>Order Form</h1>
+      <div class="container">
+        <form id="order-form" onsubmit="return false;">
+          <div class="form-group">
+            <label for="name">Name of the person placing this order:</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="address"
+              >Address of the person placing this order:</label
+            >
+            <input
+              type="text"
+              id="address"
+              name="address"
+              placeholder="Enter your complete address"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number of the person ordering:</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="Enter 10-digit mobile number"
+              required
+            />
+          </div>
+
+          <!-- NEW: Single field for "Ordering for Someone Else" -->
+          <div class="form-group">
+            <label for="ordering-for-someone"
+              >Are you ordering for someone else?</label
+            >
+            <select
+              id="ordering-for-someone"
+              name="ordering-for-someone"
+              required
+            >
+              <option value="" disabled selected>Select an option</option>
+              <option value="no">No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+
+          <!-- NEW: Conditional fields container (hidden by default) -->
+          <div id="conditional-delivery-fields" class="conditional-fields">
+            <div class="form-group">
+              <label for="delivery-phone">Phone Number for delivery:</label>
+              <input
+                type="tel"
+                id="delivery-phone"
+                name="delivery-phone"
+                style="display: none"
+                placeholder="Enter delivery phone number"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="delivery-name">Name for delivery:</label>
+              <input
+                type="text"
+                id="delivery-name"
+                name="delivery-name"
+                style="display: none"
+                placeholder="Enter delivery name"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="delivery-address">Address for delivery:</label>
+              <input
+                type="text"
+                id="delivery-address"
+                name="delivery-address"
+                style="display: none"
+                placeholder="Enter delivery address"
+              />
+            </div>
+          </div>
+
+          <!-- Rest of the form fields remain the same -->
+          <div class="form-group">
+            <label for="delivery-date">Date to be delivered:</label>
+            <input
+              type="date"
+              id="delivery-date"
+              name="delivery-date"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="delivery-time">Time of delivery:</label>
+            <input
+              type="time"
+              id="delivery-time"
+              name="delivery-time"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="cake-name">Name on cake:</label>
+            <input
+              type="text"
+              id="cake-name"
+              name="cake-name"
+              placeholder="Name to be written on cake"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="occasion">Occasion:</label>
+            <input
+              type="text"
+              id="occasion"
+              name="occasion"
+              placeholder="e.g., Birthday, Anniversary"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="delivery-mode">Mode of delivery:</label>
+            <select id="delivery-mode" name="delivery-mode" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="home-delivery">Home Delivery</option>
+              <option value="pick-up">Pick Up</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="special-request"
+              >Any Other Request for the Special Order:</label
+            >
+            <textarea
+              id="special-request"
+              name="special-request"
+              placeholder="Tell us any special requirements..."
+            ></textarea>
+          </div>
+
+          <button type="button" onclick="handleFormSubmission()">
+            <i class="fa fa-whatsapp"></i> Submit Order via WhatsApp
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Professional Business Footer -->
+    <footer class="business-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img
+            src="Cake_Logo.jpg"
+            alt="PassionBakeryNChocos Logo"
+            class="footer-logo-img"
+          />
+          <h3>PassionBakeryNChocos</h3>
+          <p>
+            Crafting sweet memories with every bite. We specialize in custom
+            cakes, homemade chocolates, and unique gift items made with pure
+            vegetarian ingredients in the most hygienic environment.
+          </p>
+          <div class="social-footer-links">
+            <a
+              href="https://www.facebook.com/share/17UMkLQ8Kb/"
+              target="_blank"
+              title="Facebook"
+              ><i class="fa fa-facebook"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/passionbakerynchoco15?igsh=NTA4NmNsZDNjd2Rp"
+              target="_blank"
+              title="Instagram"
+              ><i class="fa fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/919869153017"
+              target="_blank"
+              title="WhatsApp"
+              ><i class="fa fa-whatsapp"></i
+            ></a>
+            <a href="https://pin.it/5SXLo07ns" target="_blank" title="Pinterest"
+              ><i class="fa fa-pinterest"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="Cake.html">Home</a></li>
+            <li><a href="Products_cakes.html">Cakes Collection</a></li>
+            <li><a href="index.html">Homemade Chocolates</a></li>
+            <li><a href="Gift.html">Gift Items</a></li>
+            <li><a href="special_order_cake.html">Special Orders</a></li>
+            <li><a href="Cart_cake.html">Shopping Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Our Specialties</h3>
+          <ul>
+            <li>Custom Birthday Cakes</li>
+            <li>Wedding & Anniversary Cakes</li>
+            <li>Festival Special Treats</li>
+            <li>Corporate Gifts & Bulk Orders</li>
+            <li>Homemade Chocolates</li>
+            <li>Personalized Gift Hampers</li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Get In Touch</h3>
+          <div class="contact-info-item">
+            <i class="fa fa-envelope"></i>
+            <span>manjupathak135@gmail.com</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-phone"></i>
+            <span>+91 9869153017</span>
+            <!-- <span>+91 6376027550</span> -->
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-clock-o"></i>
+            <span>Available: 9AM - 6PM Daily</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-map-marker"></i>
+            <span>Mumbai, Maharashtra, India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-section">
+        <p>
+          &copy; 2024 PassionBakeryNChocos. All rights reserved. Made with love
+          for sweet celebrations! ❤️
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // =============================================================================
+      // PASSIONBAKERY N CHOCOS - CART PAGE COMPLETE JAVASCRIPT
+      // =============================================================================
+
+      // =============================================================================
+      // NAVIGATION FUNCTIONALITY
+      // =============================================================================
+      function myFunction() {
+        const nav = document.getElementById("myTopnav");
+        nav.className =
+          nav.className === "topnav" ? "topnav responsive" : "topnav";
+      }
+
+      // =============================================================================
+      // CART DATA MANAGEMENT
+      // =============================================================================
+      const loadCartData = () =>
+        JSON.parse(localStorage.getItem("CakecartData")) || {};
+
+      const saveCartData = (cartData) => {
+        localStorage.setItem("CakecartData", JSON.stringify(cartData));
+      };
+
+      const getCartDetails = () => {
+        const cartData = loadCartData();
+        let totalAmount = 0;
+        const productNames = [];
+
+        Object.entries(cartData).forEach(([productName, product]) => {
+          if (product.quantity > 0) {
+            totalAmount += parseFloat(product.price) * product.quantity;
+            productNames.push(
+              `${productName} - Quantity: ${product.quantity}, Weight: ${product.weight} kg`
+            );
+          }
+        });
+
+        return {
+          totalAmount: totalAmount.toFixed(2),
+          productNames: productNames.join(", "),
+        };
+      };
+
+      // =============================================================================
+      // CART TABLE DISPLAY AND UPDATES
+      // =============================================================================
+      const updateCartTable = () => {
+        const cartData = loadCartData();
+        const cartTableBody = document.getElementById("cart-table-body");
+        const emptyCart = document.getElementById("empty-cart");
+        const cartSection = document.getElementById("cart-section");
+        const paymentMethods = document.getElementById("payment-methods");
+        const paymentForm = document.getElementById("payment-form");
+
+        cartTableBody.innerHTML = "";
+
+        let totalAmount = 0;
+        let totalCount = 0;
+        let srNo = 1;
+
+        const hasItems = Object.values(cartData).some(
+          (product) => product.quantity > 0
+        );
+
+        if (!hasItems) {
+          emptyCart.style.display = "block";
+          cartSection.classList.remove("has-items");
+          paymentMethods.classList.remove("visible");
+          paymentForm.classList.remove("visible");
+        } else {
+          emptyCart.style.display = "none";
+          cartSection.classList.add("has-items");
+          paymentMethods.classList.add("visible");
+          paymentForm.classList.add("visible");
+
+          Object.entries(cartData).forEach(([productName, product]) => {
+            if (product.quantity > 0) {
+              const productTotalPrice = (
+                parseFloat(product.price) * product.quantity
+              ).toFixed(2);
+              const row = document.createElement("tr");
+              row.innerHTML = `
+          <td>${srNo++}</td>
+          <td>${productName}</td>
+          <td>${product.weight} kg</td>
+          <td>₹${productTotalPrice}</td>
+          <td>
+            <button onclick="removeFromCart('${productName}')"><i class="fa fa-trash"></i></button>
+            <button onclick="decreaseQuantity('${productName}')">−</button>
+            <button onclick="increaseQuantity('${productName}')">+</button>
+          </td>
+        `;
+              cartTableBody.appendChild(row);
+              totalAmount += parseFloat(productTotalPrice);
+              totalCount += product.quantity;
+            }
+          });
+        }
+
+        document.getElementById(
+          "total-amount"
+        ).textContent = `₹${totalAmount.toFixed(2)}`;
+        document.getElementById("cart-count").textContent = `(${totalCount})`;
+      };
+
+      // =============================================================================
+      // CART ITEM OPERATIONS
+      // =============================================================================
+      const removeFromCart = (productName) => {
+        const cartData = loadCartData();
+        delete cartData[productName];
+        saveCartData(cartData);
+        updateCartTable();
+      };
+
+      const increaseQuantity = (productName) => {
+        const cartData = loadCartData();
+        if (cartData[productName]) {
+          cartData[productName].quantity++;
+          saveCartData(cartData);
+          updateCartTable();
+        }
+      };
+
+      const decreaseQuantity = (productName) => {
+        const cartData = loadCartData();
+        if (cartData[productName] && cartData[productName].quantity > 0) {
+          cartData[productName].quantity--;
+          if (cartData[productName].quantity === 0) {
+            delete cartData[productName];
+          }
+          saveCartData(cartData);
+          updateCartTable();
+        }
+      };
+
+      function scrollToPaymentMethods() {
+        document
+          .querySelector(".payment-methods")
+          .scrollIntoView({ behavior: "smooth" });
+      }
+
+      // =============================================================================
+      // PAYMENT METHODS FUNCTIONALITY
+      // =============================================================================
+      function toggleUPI() {
+        const upiElement = document.getElementById("upi-id");
+        upiElement.style.display =
+          upiElement.style.display === "none" || upiElement.style.display === ""
+            ? "block"
+            : "none";
+      }
+
+      function toggleQRCode() {
+        const qrElement = document.getElementById("qr-code");
+        qrElement.style.display =
+          qrElement.style.display === "none" || qrElement.style.display === ""
+            ? "block"
+            : "none";
+      }
+
+      // =============================================================================
+      // DATE AND TIME RESTRICTIONS (36 HOURS MINIMUM)
+      // =============================================================================
+      function setupDateTimeRestrictions() {
+        const deliveryDateInput = document.getElementById("delivery-date");
+        const deliveryTimeInput = document.getElementById("delivery-time");
+
+        // Calculate minimum date/time (36 hours from now)
+        const getMinimumDateTime = () => {
+          const now = new Date();
+          const minimumDateTime = new Date(now.getTime() + 36 * 60 * 60 * 1000);
+          return minimumDateTime;
+        };
+
+        // Format date as YYYY-MM-DD for input min attribute
+        const formatDateForInput = (date) => {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const day = String(date.getDate()).padStart(2, "0");
+          return `${year}-${month}-${day}`;
+        };
+
+        // Format time as HH:MM for input min attribute
+        const formatTimeForInput = (date) => {
+          const hours = String(date.getHours()).padStart(2, "0");
+          const minutes = String(date.getMinutes()).padStart(2, "0");
+          return `${hours}:${minutes}`;
+        };
+
+        // Set minimum date
+        const setMinimumDate = () => {
+          const minDateTime = getMinimumDateTime();
+          const minDateStr = formatDateForInput(minDateTime);
+          deliveryDateInput.setAttribute("min", minDateStr);
+
+          // If current value is less than minimum, clear it
+          if (deliveryDateInput.value && deliveryDateInput.value < minDateStr) {
+            deliveryDateInput.value = "";
+            deliveryTimeInput.value = "";
+          }
+        };
+
+        // Validate time based on selected date
+        const validateTimeForDate = () => {
+          const selectedDate = deliveryDateInput.value;
+          if (!selectedDate) {
+            deliveryTimeInput.removeAttribute("min");
+            return;
+          }
+
+          const minDateTime = getMinimumDateTime();
+          const minDateStr = formatDateForInput(minDateTime);
+          const selectedDateObj = new Date(selectedDate + "T00:00:00");
+          const minDateObj = new Date(minDateStr + "T00:00:00");
+
+          // If selected date is the same as minimum date, set minimum time
+          if (selectedDate === minDateStr) {
+            const minTimeStr = formatTimeForInput(minDateTime);
+            deliveryTimeInput.setAttribute("min", minTimeStr);
+
+            // If current time value is less than minimum, clear it
+            if (
+              deliveryTimeInput.value &&
+              deliveryTimeInput.value < minTimeStr
+            ) {
+              deliveryTimeInput.value = "";
+            }
+          } else if (selectedDateObj > minDateObj) {
+            // If selected date is after minimum date, allow any time
+            deliveryTimeInput.removeAttribute("min");
+          } else {
+            // If selected date is before minimum date (shouldn't happen but just in case)
+            deliveryDateInput.value = "";
+            deliveryTimeInput.value = "";
+            alert("Please select a date at least 36 hours from now.");
+          }
+        };
+
+        // Set initial minimum date
+        setMinimumDate();
+
+        // Add event listeners
+        deliveryDateInput.addEventListener("change", validateTimeForDate);
+
+        // Update minimum date every minute to keep it current
+        setInterval(setMinimumDate, 60000);
+
+        // Validate on time input change
+        deliveryTimeInput.addEventListener("change", () => {
+          const selectedDate = deliveryDateInput.value;
+          const selectedTime = deliveryTimeInput.value;
+
+          if (selectedDate && selectedTime) {
+            const selectedDateTime = new Date(
+              `${selectedDate}T${selectedTime}`
+            );
+            const minDateTime = getMinimumDateTime();
+
+            if (selectedDateTime < minDateTime) {
+              alert(
+                "Delivery time must be at least 36 hours from now. Please select a later time."
+              );
+              deliveryTimeInput.value = "";
+            }
+          }
+        });
+      }
+
+      // =============================================================================
+      // CONDITIONAL FIELDS SETUP - SIMPLIFIED
+      // =============================================================================
+      function setupConditionalFields() {
+        const orderingForSomeone = document.getElementById(
+          "ordering-for-someone"
+        );
+        const conditionalFields = document.getElementById(
+          "conditional-delivery-fields"
+        );
+        const deliveryPhoneInput = document.getElementById("delivery-phone");
+        const deliveryNameInput = document.getElementById("delivery-name");
+        const deliveryAddressInput =
+          document.getElementById("delivery-address");
+
+        const toggleConditionalFields = () => {
+          if (orderingForSomeone.value === "yes") {
+            // Show conditional fields section
+            conditionalFields.classList.add("visible");
+
+            // Show all input fields
+            deliveryPhoneInput.style.display = "block";
+            deliveryNameInput.style.display = "block";
+            deliveryAddressInput.style.display = "block";
+
+            // Set all fields as required
+            deliveryPhoneInput.setAttribute("required", "required");
+            deliveryNameInput.setAttribute("required", "required");
+            deliveryAddressInput.setAttribute("required", "required");
+          } else {
+            // Hide conditional fields section
+            conditionalFields.classList.remove("visible");
+
+            // Hide all input fields
+            deliveryPhoneInput.style.display = "none";
+            deliveryNameInput.style.display = "none";
+            deliveryAddressInput.style.display = "none";
+
+            // Remove required attribute and clear values
+            deliveryPhoneInput.removeAttribute("required");
+            deliveryNameInput.removeAttribute("required");
+            deliveryAddressInput.removeAttribute("required");
+
+            deliveryPhoneInput.value = "";
+            deliveryNameInput.value = "";
+            deliveryAddressInput.value = "";
+          }
+        };
+
+        // Initial check on page load
+        toggleConditionalFields();
+
+        // Add event listener for changes
+        orderingForSomeone.addEventListener("change", toggleConditionalFields);
+      }
+
+      // =============================================================================
+      // FORM VALIDATION FUNCTIONS
+      // =============================================================================
+      const validatePhoneNumber = (phone) => /^[6-9]\d{9}$/.test(phone);
+
+      const getFormData = () => {
+        const form = document.getElementById("order-form");
+
+        const customerData = {
+          name: form.name.value.trim(),
+          address: form.address.value.trim(),
+          phone: form.phone.value.trim(),
+        };
+
+        const orderingForSomeone = form["ordering-for-someone"].value;
+
+        // If ordering for someone else, use the delivery fields; otherwise use customer data
+        const deliveryData = {
+          phone:
+            orderingForSomeone === "yes"
+              ? form["delivery-phone"].value.trim()
+              : customerData.phone,
+          name:
+            orderingForSomeone === "yes"
+              ? form["delivery-name"].value.trim()
+              : customerData.name,
+          address:
+            orderingForSomeone === "yes"
+              ? form["delivery-address"].value.trim()
+              : customerData.address,
+        };
+
+        const orderData = {
+          deliveryDate: form["delivery-date"].value.trim(),
+          deliveryTime: form["delivery-time"].value.trim(),
+          deliveryMode: form["delivery-mode"].value.trim(),
+          cakeName: form["cake-name"].value.trim(),
+          occasion: form["occasion"].value.trim(),
+          specialRequest: form["special-request"].value.trim(),
+        };
+
+        return {
+          customerData,
+          deliveryData,
+          orderData,
+          form,
+          orderingForSomeone,
+        };
+      };
+
+      const validateFormData = ({
+        customerData,
+        deliveryData,
+        orderData,
+        form,
+        orderingForSomeone,
+      }) => {
+        // Validate customer information
+        if (
+          !customerData.name ||
+          !customerData.address ||
+          !customerData.phone
+        ) {
+          alert(
+            "Please fill in all required customer fields (Name, Address, Phone)."
+          );
+          return false;
+        }
+
+        // Validate phone number format for customer
+        if (!validatePhoneNumber(customerData.phone)) {
+          alert(
+            "Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9 for Customer Phone."
+          );
+          return false;
+        }
+
+        // Validate phone number length
+        if (customerData.phone.length !== 10) {
+          alert("Customer phone number must be exactly 10 digits.");
+          return false;
+        }
+
+        // Validate conditional delivery fields if ordering for someone else
+        if (orderingForSomeone === "yes") {
+          if (
+            !deliveryData.phone ||
+            !deliveryData.name ||
+            !deliveryData.address
+          ) {
+            alert(
+              "Please fill in all delivery details (Phone, Name, Address)."
+            );
+            return false;
+          }
+
+          if (!validatePhoneNumber(deliveryData.phone)) {
+            alert(
+              "Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9 for Delivery Phone."
+            );
+            return false;
+          }
+
+          // Validate delivery phone number length
+          if (deliveryData.phone.length !== 10) {
+            alert("Delivery phone number must be exactly 10 digits.");
+            return false;
+          }
+        }
+
+        // Validate delivery date and time
+        if (!orderData.deliveryDate || !orderData.deliveryTime) {
+          alert("Please select delivery date and time.");
+          return false;
+        }
+
+        // Final validation: Check if selected date/time is at least 36 hours from now
+        const deliveryDateTime = new Date(
+          `${orderData.deliveryDate}T${orderData.deliveryTime}`
+        );
+        const currentDateTime = new Date();
+        const minimumDateTime = new Date(
+          currentDateTime.getTime() + 36 * 60 * 60 * 1000
+        );
+
+        if (deliveryDateTime < minimumDateTime) {
+          alert(
+            "The selected delivery time must be at least 36 hours from now. Please select a later date and time."
+          );
+          return false;
+        }
+
+        // Validate delivery mode
+        if (!orderData.deliveryMode) {
+          alert("Please select a delivery mode.");
+          return false;
+        }
+
+        // Validate cake name and occasion
+        if (!orderData.cakeName || !orderData.occasion) {
+          alert("Please fill in cake name and occasion.");
+          return false;
+        }
+
+        // Special request is optional, but if left empty, set to "None"
+        if (
+          !orderData.specialRequest ||
+          orderData.specialRequest.toLowerCase() === ""
+        ) {
+          orderData.specialRequest = "None";
+        }
+
+        return true;
+      };
+
+      // =============================================================================
+      // WHATSAPP MESSAGE GENERATION
+      // =============================================================================
+      const generateWhatsAppMessage = (
+        { customerData, deliveryData, orderData, orderingForSomeone },
+        cartDetails
+      ) => {
+        let message =
+          `🎂 *PASSIONBAKERY N CHOCOS* 🍫\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+          `📋 *NEW ORDER RECEIVED*\n\n` +
+          `👤 *CUSTOMER INFORMATION*\n` +
+          `├─ Name: ${customerData.name}\n` +
+          `├─ Address: ${customerData.address}\n` +
+          `└─ Phone: +91 ${customerData.phone}\n\n`;
+
+        if (orderingForSomeone === "yes") {
+          message +=
+            `👥 *ORDERING FOR SOMEONE ELSE*\n` +
+            `🚚 *DELIVERY DETAILS*\n` +
+            `├─ Recipient Name: ${deliveryData.name}\n` +
+            `├─ Delivery Address: ${deliveryData.address}\n` +
+            `├─ Contact Number: +91 ${deliveryData.phone}\n` +
+            `├─ Delivery Date: 📅 ${orderData.deliveryDate}\n` +
+            `├─ Delivery Time: 🕐 ${orderData.deliveryTime}\n` +
+            `└─ Delivery Mode: ${
+              orderData.deliveryMode === "home-delivery"
+                ? "🏠 Home Delivery"
+                : "🏪 Pick Up"
+            }\n\n`;
+        } else {
+          message +=
+            `🚚 *DELIVERY DETAILS*\n` +
+            `├─ Delivery Date: 📅 ${orderData.deliveryDate}\n` +
+            `├─ Delivery Time: 🕐 ${orderData.deliveryTime}\n` +
+            `└─ Delivery Mode: ${
+              orderData.deliveryMode === "home-delivery"
+                ? "🏠 Home Delivery"
+                : "🏪 Pick Up"
+            }\n\n`;
+        }
+
+        message +=
+          `🛍️ *ORDER SUMMARY*\n` +
+          `${cartDetails.productNames
+            .split(", ")
+            .map((item, index) => `${index === 0 ? "├─" : "├─"} ${item}`)
+            .join("\n")}\n` +
+          `└─ *Total Amount: ₹${cartDetails.totalAmount}*\n\n` +
+          `🎉 *CAKE CUSTOMIZATION*\n` +
+          `├─ Name on Cake: ${orderData.cakeName}\n` +
+          `└─ Occasion: ${orderData.occasion}\n\n`;
+
+        if (orderData.specialRequest && orderData.specialRequest !== "None") {
+          message += `💬 *SPECIAL REQUESTS*\n${orderData.specialRequest}\n\n`;
+        }
+
+        message +=
+          `━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `💰 *PAYMENT REMINDER*\n` +
+          `Please pay 50% advance (₹${(
+            parseFloat(cartDetails.totalAmount) * 0.5
+          ).toFixed(2)}) to confirm your order.\n\n` +
+          `✅ Thank you for choosing PassionBakery N Chocos!\n` +
+          `We look forward to making your celebration special! 🎊`;
+
+        return message;
+      };
+
+      // =============================================================================
+      // FORM SUBMISSION HANDLER
+      // =============================================================================
+      function handleFormSubmission() {
+        try {
+          const formData = getFormData();
+
+          // Validate all form data
+          if (!validateFormData(formData)) {
+            return;
+          }
+
+          const cartDetails = getCartDetails();
+
+          // Generate WhatsApp message
+          const message = generateWhatsAppMessage(formData, cartDetails);
+          const whatsappNumber = "919869153017";
+          const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(
+            message
+          )}`;
+
+          // Clear cart data from localStorage before opening WhatsApp
+          localStorage.removeItem("CakecartData");
+
+          // Open WhatsApp in new window
+          window.open(whatsappURL, "_blank");
+
+          // Hide cart and payment sections
+          document.getElementById("cart-section").classList.remove("has-items");
+          document
+            .getElementById("payment-methods")
+            .classList.remove("visible");
+
+          const paymentForm = document.getElementById("payment-form");
+          const successSection = document.getElementById("success-section");
+
+          // Hide payment form and show success section
+          paymentForm.classList.remove("visible");
+          paymentForm.style.display = "none";
+          successSection.classList.add("visible");
+          successSection.style.display = "block";
+
+          // Update cart count to 0
+          document.getElementById("cart-count").textContent = "(0)";
+
+          // Scroll to success section
+          setTimeout(() => {
+            successSection.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 300);
+        } catch (error) {
+          console.error("Error during WhatsApp submission:", error);
+          alert(
+            "An unexpected error occurred. Please try again or contact us directly at 919869153017"
+          );
+        }
+      }
+
+      // =============================================================================
+      // PHONE NUMBER INPUT VALIDATION
+      // =============================================================================
+      function setupPhoneValidation() {
+        const phoneInputs = ["phone", "delivery-phone"];
+
+        phoneInputs.forEach((inputId) => {
+          const input = document.getElementById(inputId);
+          if (input) {
+            // Allow only numbers
+            input.addEventListener("input", function (e) {
+              this.value = this.value.replace(/[^0-9]/g, "");
+            });
+
+            // Prevent non-numeric characters
+            input.addEventListener("keypress", function (e) {
+              const charCode = e.which || e.keyCode;
+              if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                e.preventDefault();
+              }
+            });
+          }
+        });
+      }
+
+      // =============================================================================
+      // PAGE INITIALIZATION
+      // =============================================================================
+      window.addEventListener("DOMContentLoaded", () => {
+        // Check if there are items in cart
+        const cartData = loadCartData();
+        const hasItems = Object.values(cartData).some(
+          (product) => product.quantity > 0
+        );
+
+        if (!hasItems) {
+          // Show empty cart state
+          document.getElementById("empty-cart").style.display = "block";
+          document.getElementById("cart-section").classList.remove("has-items");
+          document
+            .getElementById("payment-methods")
+            .classList.remove("visible");
+          document.getElementById("payment-form").classList.remove("visible");
+          document
+            .getElementById("success-section")
+            .classList.remove("visible");
+          document.getElementById("success-section").style.display = "none";
+        } else {
+          // Display cart items
+          updateCartTable();
+        }
+
+        // Initialize form functionality
+        setupConditionalFields();
+        setupPhoneValidation();
+        setupDateTimeRestrictions(); // New: Set up date/time restrictions
+      });
+    </script>
+  </body>
+</html>

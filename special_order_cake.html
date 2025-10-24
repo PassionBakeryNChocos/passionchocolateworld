@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PassionBakeryNChocos - Special Order</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Delius&family=Diphylleia&family=Great+Vibes&family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* CSS Variables */
+      :root {
+        --primary-gradient: linear-gradient(
+          90deg,
+          rgba(30, 242, 253, 0.95) 0%,
+          rgba(74, 144, 226, 0.95) 100%
+        );
+        --section-gradient: linear-gradient(
+          135deg,
+          #6266f4 0%,
+          #4a54d1 50%,
+          #3d47b8 100%
+        );
+        --gold: #ffd700;
+        --primary-text: #11124a;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --border-radius: 20px;
+      }
+
+      /* Global Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: #1ef2fd;
+        overflow-x: hidden;
+        line-height: 1.6;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        max-width: 100vw;
+      }
+
+      /* ========================================
+   NAVIGATION BAR - ENHANCED WITH STICKY
+   ======================================== */
+      .topnav {
+        overflow: hidden;
+        background: var(--primary-gradient);
+        font-family: Delius;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        max-width: 100%;
+      }
+
+      .topnav a,
+      .topnav .cart-icon {
+        float: left;
+        display: block;
+        color: var(--primary-text);
+        text-align: center;
+        padding: 16px 24px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        border-radius: 12px;
+        margin: 8px 6px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .topnav a:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: var(--transition);
+      }
+
+      .topnav a:hover:before {
+        left: 100%;
+      }
+
+      .topnav a:hover,
+      .topnav .cart-icon:hover {
+        background: linear-gradient(45deg, #0000ff, #4169e1);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(99, 102, 241, 0.3);
+      }
+
+      .topnav .cart-icon:hover {
+        transform: translateY(-2px) rotate(5deg);
+      }
+
+      .topnav a.active {
+        background: linear-gradient(45deg, #3e476f, #5a6491);
+        color: white;
+        box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        transform: scale(1.05);
+      }
+
+      .topnav .icon {
+        display: none;
+      }
+
+      /* Border Images */
+      .border-image {
+        width: min(70%, 600px);
+        height: auto;
+        margin: 20px auto;
+        display: block;
+        animation: imageFloat 6s ease-in-out infinite;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) brightness(1.1)
+          contrast(1.1);
+      }
+
+      @keyframes imageFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* Form Container */
+      .container {
+        max-width: 700px;
+        width: 90%;
+        padding: clamp(30px, 5vw, 50px);
+        margin: 40px auto;
+        background: linear-gradient(
+          135deg,
+          rgba(98, 102, 244, 0.98) 0%,
+          rgba(74, 84, 209, 0.98) 50%,
+          rgba(61, 71, 184, 0.98) 100%
+        );
+        color: floralwhite;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(98, 102, 244, 0.4),
+          0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold), #ffa500, var(--gold));
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      /* Form Title */
+      h2 {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        text-align: center;
+        margin-bottom: 30px;
+        font-family: "Great Vibes", cursive;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+          0 0 30px rgba(255, 215, 0, 0.4);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+        position: relative;
+        padding-bottom: 20px;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        border-radius: 2px;
+      }
+
+      @keyframes titleGlow {
+        from {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        to {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 215, 0, 0.6);
+        }
+      }
+
+      /* Form Elements */
+      .form-group {
+        margin-bottom: 25px;
+        position: relative;
+        animation: fadeInUp 0.6s ease-out backwards;
+      }
+
+      .form-group:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .form-group:nth-child(2) {
+        animation-delay: 0.15s;
+      }
+      .form-group:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .form-group:nth-child(4) {
+        animation-delay: 0.25s;
+      }
+      .form-group:nth-child(5) {
+        animation-delay: 0.3s;
+      }
+      .form-group:nth-child(6) {
+        animation-delay: 0.35s;
+      }
+      .form-group:nth-child(7) {
+        animation-delay: 0.4s;
+      }
+      .form-group:nth-child(8) {
+        animation-delay: 0.45s;
+      }
+      .form-group:nth-child(9) {
+        animation-delay: 0.5s;
+      }
+      .form-group:nth-child(10) {
+        animation-delay: 0.55s;
+      }
+      .form-group:nth-child(11) {
+        animation-delay: 0.6s;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-family: Delius;
+        color: white;
+        font-size: clamp(0.95rem, 2vw, 1.05rem);
+        letter-spacing: 0.3px;
+      }
+
+      label::before {
+        content: "◆";
+        color: var(--gold);
+        font-size: 0.8em;
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      /* Input Styles */
+      input[type="text"],
+      input[type="tel"],
+      input[type="number"],
+      input[type="date"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 14px 18px;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        box-sizing: border-box;
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2vw, 1rem);
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--primary-text);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="text"]:focus,
+      input[type="tel"]:focus,
+      input[type="number"]:focus,
+      input[type="date"]:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--gold);
+        background: white;
+        box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3),
+          0 0 0 4px rgba(255, 215, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      input[type="text"]::placeholder,
+      input[type="tel"]::placeholder,
+      input[type="number"]::placeholder,
+      textarea::placeholder {
+        color: rgba(17, 18, 74, 0.5);
+        font-style: italic;
+      }
+
+      /* File Input */
+      input[type="file"] {
+        width: 100%;
+        padding: 14px;
+        border: 2px dashed rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        font-family: Delius;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      input[type="file"]:hover {
+        border-color: var(--gold);
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      input[type="file"]::file-selector-button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        background: linear-gradient(135deg, var(--gold), #ffa500);
+        color: var(--primary-text);
+        font-weight: 600;
+        font-family: Delius;
+        cursor: pointer;
+        margin-right: 12px;
+        transition: all 0.3s ease;
+      }
+
+      input[type="file"]::file-selector-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.4);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+        line-height: 1.6;
+      }
+
+      /* Select Dropdown */
+      select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23FFD700' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 15px center;
+        padding-right: 45px;
+        font-weight: 500;
+        background-color: rgba(255, 255, 255, 0.95);
+      }
+
+      select:hover {
+        border-color: var(--gold);
+        background-color: white;
+        box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
+      }
+
+      select option {
+        padding: 12px;
+        background: white;
+        color: var(--primary-text);
+        font-weight: 500;
+      }
+
+      select option:hover {
+        background: rgba(255, 215, 0, 0.1);
+      }
+
+      /* Date Input */
+      input[type="date"] {
+        position: relative;
+        cursor: pointer;
+        font-weight: 500;
+        color: var(--primary-text);
+      }
+
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        filter: invert(0.3) sepia(1) saturate(5) hue-rotate(0deg)
+          brightness(1.2);
+        width: 20px;
+        height: 20px;
+        opacity: 0.8;
+        transition: all 0.3s ease;
+      }
+
+      input[type="date"]:hover::-webkit-calendar-picker-indicator {
+        opacity: 1;
+        transform: scale(1.15);
+        filter: invert(0.3) sepia(1) saturate(5) hue-rotate(0deg)
+          brightness(1.5);
+      }
+
+      input[type="date"]:focus::-webkit-calendar-picker-indicator {
+        filter: invert(0.5) sepia(1) saturate(10) hue-rotate(5deg)
+          brightness(1.3);
+      }
+
+      /* Number Input */
+      input[type="number"] {
+        font-weight: 600;
+        color: var(--primary-text);
+        position: relative;
+      }
+
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Weight Input Container */
+      .weight-input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .weight-input-wrapper input[type="number"] {
+        flex: 1;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+      }
+
+      .weight-btn {
+        width: 45px;
+        height: 45px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--gold), #ffa500);
+        color: var(--primary-text);
+        font-size: 1.3rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        flex-shrink: 0;
+      }
+
+      .weight-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
+        background: linear-gradient(135deg, #ffa500, var(--gold));
+      }
+
+      .weight-btn:active {
+        transform: scale(0.95);
+      }
+
+      .weight-display {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        font-size: 0.9rem;
+        color: white;
+        margin-top: 8px;
+        font-weight: 600;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Delivery mode select icon */
+      #delivery-mode {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='%23FFD700'%3E%3Cpath d='M18 18.5a1.5 1.5 0 0 1-1 1.5 1.5 1.5 0 1 1-1-1.5H8a1.5 1.5 0 1 1-1 1.5 1.5 1.5 0 0 1-1-1.5H5v-5h2v-2h10v2h2v5h-1z'/%3E%3Cpath d='M3 4h15v8H3z'/%3E%3C/svg%3E"),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23FFD700' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat, no-repeat;
+        background-position: 15px center, right 15px center;
+        padding-left: 45px;
+      }
+
+      /* Name on cake select icon */
+      #name-on-cake {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23FFD700' stroke-width='2'%3E%3Cpath d='M12 2l3 7h7l-6 5 2 7-6-4-6 4 2-7-6-5h7z'/%3E%3C/svg%3E"),
+          url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='%23FFD700' d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat, no-repeat;
+        background-position: 15px center, right 15px center;
+        padding-left: 45px;
+      }
+
+      /* Submit Button */
+      button {
+        background: linear-gradient(135deg, #5cb85c 0%, #4cae4c 100%);
+        color: white;
+        padding: 16px 32px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        font-family: Delius;
+        font-weight: bold;
+        font-size: clamp(1rem, 2.5vw, 1.15rem);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 6px 20px rgba(92, 184, 92, 0.4);
+        position: relative;
+        overflow: hidden;
+        margin-top: 10px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      button::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.6s ease;
+      }
+
+      button:hover::before {
+        left: 100%;
+      }
+
+      button:hover {
+        background: linear-gradient(135deg, #4cae4c 0%, #5cb85c 100%);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 30px rgba(92, 184, 92, 0.5);
+      }
+
+      button:active {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(92, 184, 92, 0.4);
+      }
+
+      /* Conditional Input */
+      #cake-name {
+        margin-top: 12px;
+        animation: slideDown 0.3s ease-out;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          max-height: 0;
+          margin-top: 0;
+        }
+        to {
+          opacity: 1;
+          max-height: 100px;
+          margin-top: 12px;
+        }
+      }
+
+      /* Footer */
+      .business-footer {
+        background: linear-gradient(
+          135deg,
+          #0000ff 0%,
+          #1e3a8a 50%,
+          #1e40af 100%
+        );
+        color: floralwhite;
+        padding: clamp(40px, 6vw, 60px) clamp(15px, 4vw, 20px)
+          clamp(20px, 3vw, 30px);
+        font-family: Delius;
+        border-top: 4px solid var(--gold);
+        box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.2);
+        margin-top: 50px;
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: clamp(25px, 5vw, 40px);
+      }
+
+      .footer-section {
+        flex: 1 1 280px;
+        min-width: 250px;
+      }
+
+      .footer-section h3 {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        color: var(--gold);
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .footer-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        line-height: 1.6;
+        color: floralwhite;
+        margin-bottom: 15px;
+        font-family: Delius;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-section ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .footer-section ul li:hover {
+        padding-left: 15px;
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .footer-section a {
+        color: floralwhite;
+        text-decoration: none;
+        transition: var(--transition);
+        font-family: Delius;
+      }
+
+      .footer-section a:hover {
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-family: Delius;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .contact-info-item i {
+        width: 25px;
+        margin-right: 12px;
+        color: var(--gold);
+        font-size: 1.1rem;
+      }
+
+      .social-footer-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .social-footer-links a {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(45deg, #11124a, #1a1d5a);
+        border-radius: 50%;
+        text-align: center;
+        line-height: 45px;
+        transition: var(--transition);
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        box-shadow: 0 4px 15px rgba(17, 18, 74, 0.3);
+      }
+
+      .social-footer-links a:hover {
+        background: linear-gradient(45deg, #fea3aa, #ff7b82);
+        color: var(--primary-text);
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(254, 163, 170, 0.4);
+        border-color: var(--gold);
+      }
+
+      .footer-logo-img {
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+      }
+
+      .footer-logo-img:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+      }
+
+      .footer-bottom-section {
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 2px solid rgba(255, 215, 0, 0.3);
+        text-align: center;
+      }
+
+      .footer-bottom-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        color: var(--gold);
+        font-family: Delius;
+        font-weight: bold;
+      }
+
+      /* Mobile Responsive */
+      @media screen and (max-width: 768px) {
+        .topnav {
+          padding: 0 5px;
+          position: relative;
+          min-height: 50px;
+        }
+
+        .topnav a:not(.active):not(.cart-icon):not(.icon) {
+          display: none;
+          clear: both;
+          width: 100%;
+        }
+
+        .topnav a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        /* Fixed position for Cart Icon - always on extreme right */
+        .topnav .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        /* Fixed position for Hamburger Icon - left of cart */
+        .topnav a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          display: block !important;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 1.2rem;
+          color: var(--primary-text);
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .topnav a {
+          margin: 5px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .topnav.responsive {
+          position: relative;
+        }
+
+        /* Keep active link in place on extreme left */
+        .topnav.responsive a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        /* Cart Icon stays fixed on extreme right */
+        .topnav.responsive .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+        }
+
+        /* Hamburger Icon stays fixed left of cart */
+        .topnav.responsive a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          color: var(--gold);
+          background: linear-gradient(45deg, #3e476f, #5a6491);
+          margin: 8px 3px;
+        }
+
+        /* Expanded menu items appear below the first row */
+        .topnav.responsive a:not(.active):not(.icon):not(.cart-icon) {
+          display: block;
+          float: none;
+          text-align: left;
+          width: 100%;
+          clear: both;
+          margin: 5px 10px;
+        }
+
+        .topnav.responsive
+          a:not(.active):not(.icon):not(.cart-icon):first-of-type {
+          padding-top: 0;
+          margin-top: 50px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          margin: 15px 10px;
+          padding: 20px 15px;
+          border-radius: 18px;
+        }
+
+        input[type="text"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        textarea {
+          padding: 12px 14px;
+        }
+
+        button {
+          padding: 12px 20px;
+          font-size: 0.95rem;
+        }
+
+        label {
+          font-size: 0.9rem;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="topnav" id="myTopnav">
+      <a href="Cake.html">Home</a>
+      <a href="Products_cakes.html">Products</a>
+      <a href="Cake.html">About Me</a>
+      <a href="Cake.html">Reviews</a>
+      <a href="Cake.html">Contact Us</a>
+      <a href="special_order_cake.html" class="active">Special Order</a>
+
+      <a href="Cart_cake.html" class="cart-icon">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">(0)</span>
+      </a>
+
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <div class="container">
+      <h2>Special Cake Order Form</h2>
+
+      <!-- PRICING NOTE -->
+      <div
+        style="
+          background: rgba(99, 102, 244, 0.2);
+          border-left: 4px solid var(--gold);
+          padding: 15px 20px;
+          border-radius: 8px;
+          margin-bottom: 25px;
+          animation: fadeInUp 0.6s ease-out;
+        "
+      >
+        <p
+          style="
+            margin: 0;
+            color: white;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+            line-height: 1.6;
+            font-family: 'Delius';
+          "
+        >
+          <i
+            class="fa fa-info-circle"
+            style="color: var(--gold); margin-right: 8px"
+          ></i>
+          <strong style="color: var(--gold)">Note:</strong> The final pricing
+          for your custom order will be confirmed after our team carefully
+          reviews your specific requirements and preferences. We'll get back to
+          you shortly with a detailed quote.
+        </p>
+      </div>
+
+      <form id="special-order-form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Enter your full name"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="Enter your contact number"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="address">Delivery Address</label>
+          <textarea
+            id="address"
+            name="address"
+            placeholder="Enter your complete delivery address"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="weight">Weight of Custom Cake (minimum 2.5 kg)</label>
+          <div class="weight-input-wrapper">
+            <button type="button" class="weight-btn" id="decrease-weight">
+              −
+            </button>
+            <input
+              type="number"
+              id="weight"
+              name="weight"
+              value="2.5"
+              min="2.5"
+              step="0.5"
+              readonly
+              required
+            />
+            <button type="button" class="weight-btn" id="increase-weight">
+              +
+            </button>
+          </div>
+          <div class="weight-display">
+            <i class="fa fa-balance-scale"></i>
+            <span>Use +/− buttons to adjust weight</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="delivery-date">Date for Order Delivery</label>
+          <input type="date" id="delivery-date" name="delivery-date" required />
+        </div>
+
+        <div class="form-group">
+          <label for="delivery-mode">Mode of Delivery</label>
+          <select id="delivery-mode" name="delivery-mode" required>
+            <option value="">Select delivery mode</option>
+            <option value="pickup">Pickup</option>
+            <option value="to-go">Home Delivery</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="occasion">Occasion for the Custom Cake</label>
+          <input
+            type="text"
+            id="occasion"
+            name="occasion"
+            placeholder="e.g., Birthday, Anniversary, Wedding"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="flavour">Flavour of the Cake</label>
+          <input
+            type="text"
+            id="flavour"
+            name="flavour"
+            placeholder="e.g., Chocolate, Vanilla, Red Velvet"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="special-design">Any Special Design Requirements</label>
+          <textarea
+            id="special-design"
+            name="special-design"
+            placeholder="Describe your special design requirements (e.g., cartoon characters, photo cake, specific theme, colors, decorations)"
+            rows="3"
+          ></textarea>
+          <small
+            style="
+              display: block;
+              margin-top: 8px;
+              color: var(--gold);
+              font-size: 0.85rem;
+              font-style: italic;
+            "
+          >
+            <i class="fa fa-camera"></i> If you have reference images, please
+            send them via WhatsApp after submitting this form
+          </small>
+        </div>
+
+        <div class="form-group">
+          <label for="name-on-cake">Name on the Cake</label>
+          <select id="name-on-cake" name="name-on-cake" required>
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+          <input
+            type="text"
+            id="cake-name"
+            name="cake-name"
+            placeholder="Type the name to be written on cake"
+            style="display: none"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="special-request"
+            >Any Other Request for the Special Order</label
+          >
+          <textarea
+            id="special-request"
+            name="special-request"
+            placeholder="Tell us any special requirements or preferences..."
+            required
+          ></textarea>
+        </div>
+
+        <button type="submit">
+          <i class="fa fa-paper-plane"></i> Submit Order
+        </button>
+      </form>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <!-- Professional Business Footer -->
+    <footer class="business-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img
+            src="Cake_Logo.jpg"
+            alt="PassionBakeryNChocos Logo"
+            class="footer-logo-img"
+          />
+          <h3>PassionBakeryNChocos</h3>
+          <p>
+            Crafting sweet memories with every bite. We specialize in custom
+            cakes, homemade chocolates, and unique gift items made with pure
+            vegetarian ingredients in the most hygienic environment.
+          </p>
+          <div class="social-footer-links">
+            <a
+              href="https://www.facebook.com/share/17UMkLQ8Kb/"
+              target="_blank"
+              title="Facebook"
+              ><i class="fa fa-facebook"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/passionbakerynchoco15?igsh=NTA4NmNsZDNjd2Rp"
+              target="_blank"
+              title="Instagram"
+              ><i class="fa fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/919869153017"
+              target="_blank"
+              title="WhatsApp"
+              ><i class="fa fa-whatsapp"></i
+            ></a>
+            <a href="https://pin.it/5SXLo07ns" target="_blank" title="Pinterest"
+              ><i class="fa fa-pinterest"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="Cake.html">Home</a></li>
+            <li><a href="Products_cakes.html">Cakes Collection</a></li>
+            <li><a href="index.html">Homemade Chocolates</a></li>
+            <li><a href="Gift.html">Gift Items</a></li>
+            <li><a href="special_order_cake.html">Special Orders</a></li>
+            <li><a href="Cart_cake.html">Shopping Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Our Specialties</h3>
+          <ul>
+            <li>Custom Birthday Cakes</li>
+            <li>Wedding & Anniversary Cakes</li>
+            <li>Festival Special Treats</li>
+            <li>Corporate Gifts & Bulk Orders</li>
+            <li>Homemade Chocolates</li>
+            <li>Personalized Gift Hampers</li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Get In Touch</h3>
+          <div class="contact-info-item">
+            <i class="fa fa-envelope"></i>
+            <span>manjupathak135@gmail.com</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-phone"></i>
+            <span>+91 9869153017</span>
+            <!-- <span>+91 6376027550</span> -->
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-clock-o"></i>
+            <span>Available: 9AM - 6PM Daily</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-map-marker"></i>
+            <span>Mumbai, Maharashtra, India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-section">
+        <p>
+          &copy; 2024 PassionBakeryNChocos. All rights reserved. Made with love
+          for sweet celebrations! ❤️
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // ========================================
+      // NAVIGATION BAR FUNCTIONALITY
+      // ========================================
+
+      /**
+       * Toggle responsive navigation menu for mobile devices
+       * Adds/removes 'responsive' class to show/hide navigation items
+       */
+      function myFunction() {
+        const nav = document.getElementById("myTopnav");
+        nav.className =
+          nav.className === "topnav" ? "topnav responsive" : "topnav";
+      }
+
+      // ========================================
+      // CART COUNT DISPLAY
+      // ========================================
+
+      /**
+       * Update cart count badge from localStorage
+       * Runs immediately on page load
+       */
+      (function updateCartCount() {
+        const cartData = JSON.parse(localStorage.getItem("CakecartData")) || {};
+        const cartCount = Object.values(cartData).reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = `(${cartCount})`;
+        }
+      })();
+
+      // ========================================
+      // FORM INITIALIZATION AND EVENT LISTENERS
+      // ========================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // ========================================
+        // PHONE NUMBER VALIDATION
+        // ========================================
+
+        const phoneInput = document.getElementById("phone");
+
+        // Remove non-digit characters on input
+        phoneInput.addEventListener("input", function (e) {
+          this.value = this.value.replace(/[^0-9]/g, "");
+        });
+
+        // Prevent non-numeric keypress
+        phoneInput.addEventListener("keypress", function (e) {
+          const charCode = e.which || e.keyCode;
+          if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            e.preventDefault();
+          }
+        });
+
+        // ========================================
+        // WEIGHT ADJUSTMENT FUNCTIONALITY
+        // ========================================
+
+        const weightInput = document.getElementById("weight");
+        const increaseBtn = document.getElementById("increase-weight");
+        const decreaseBtn = document.getElementById("decrease-weight");
+        const minWeight = 2.5;
+        const step = 0.5;
+
+        increaseBtn.addEventListener("click", function () {
+          let currentWeight = parseFloat(weightInput.value);
+          weightInput.value = (currentWeight + step).toFixed(1);
+        });
+
+        decreaseBtn.addEventListener("click", function () {
+          let currentWeight = parseFloat(weightInput.value);
+          if (currentWeight > minWeight) {
+            weightInput.value = (currentWeight - step).toFixed(1);
+          }
+        });
+
+        // ========================================
+        // NAME ON CAKE TOGGLE
+        // ========================================
+
+        const nameOnCakeSelect = document.getElementById("name-on-cake");
+        const cakeNameInput = document.getElementById("cake-name");
+
+        nameOnCakeSelect.addEventListener("change", function () {
+          if (this.value === "yes") {
+            cakeNameInput.style.display = "block";
+            cakeNameInput.focus();
+          } else {
+            cakeNameInput.style.display = "none";
+            cakeNameInput.value = "";
+          }
+        });
+
+        // ========================================
+        // FORM SUBMISSION AND WHATSAPP INTEGRATION
+        // ========================================
+
+        const specialOrderForm = document.getElementById("special-order-form");
+
+        specialOrderForm.addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          // Collect form data
+          const formData = {
+            name: document.getElementById("name").value.trim(),
+            phone: phoneInput.value.trim(),
+            address: document.getElementById("address").value.trim(),
+            weight: weightInput.value,
+            deliveryDate: document.getElementById("delivery-date").value,
+            deliveryMode: document.getElementById("delivery-mode").value,
+            occasion: document.getElementById("occasion").value.trim(),
+            flavour: document.getElementById("flavour").value.trim(),
+            specialDesign: getSpecialDesignText(),
+            nameOnCake: getNameOnCakeText(),
+            specialRequest: document
+              .getElementById("special-request")
+              .value.trim(),
+          };
+
+          // Validate and send
+          if (validateFormData(formData)) {
+            const whatsappMessage = formatWhatsAppMessage(formData);
+            sendToWhatsApp(whatsappMessage);
+          }
+        });
+
+        // ========================================
+        // HELPER FUNCTIONS
+        // ========================================
+
+        /**
+         * Get special design text from textarea
+         */
+        function getSpecialDesignText() {
+          const designTextarea = document.getElementById("special-design");
+          return (
+            designTextarea.value.trim() || "No special design requirements"
+          );
+        }
+
+        /**
+         * Get name on cake text based on selection
+         */
+        function getNameOnCakeText() {
+          return nameOnCakeSelect.value === "yes"
+            ? cakeNameInput.value.trim()
+            : "No";
+        }
+
+        /**
+         * Validate form data before submission
+         */
+        function validateFormData(data) {
+          const requiredFields = [
+            "name",
+            "phone",
+            "address",
+            "occasion",
+            "flavour",
+            "specialRequest",
+          ];
+
+          for (const field of requiredFields) {
+            if (!data[field]) {
+              alert(
+                `Please fill in the ${field
+                  .replace(/([A-Z])/g, " $1")
+                  .toLowerCase()} field.`
+              );
+              return false;
+            }
+          }
+
+          // Validate delivery date
+          const deliveryDate = new Date(data.deliveryDate);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+
+          if (deliveryDate < today) {
+            alert("Delivery date cannot be in the past.");
+            return false;
+          }
+
+          return true;
+        }
+
+        /**
+         * Format form data into WhatsApp message
+         */
+        function formatWhatsAppMessage(data) {
+          return (
+            `🍰 *Special Cake Order* 🍰 \n\n` +
+            `👤 Name: ${data.name}\n` +
+            `📞 Phone: ${data.phone}\n` +
+            `📍 Address: ${data.address}\n` +
+            `⚖️ Weight: ${data.weight} kg\n` +
+            `📅 Delivery Date: ${data.deliveryDate}\n` +
+            `🚚 Delivery Mode: ${data.deliveryMode}\n` +
+            `🎉 Occasion: ${data.occasion}\n` +
+            `🍴 Flavour: ${data.flavour}\n` +
+            `🎨 Special Design: ${data.specialDesign}\n` +
+            `✏️ Name on Cake: ${data.nameOnCake}\n` +
+            `💭 Special Request: ${data.specialRequest}\n\n` +
+            `📸 *Please send any reference images for the design in your next message*`
+          );
+        }
+
+        /**
+         * Send formatted message to WhatsApp
+         */
+        function sendToWhatsApp(message) {
+          const whatsappNumber = "919869153017";
+          const encodedMessage = encodeURIComponent(message);
+          const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+
+          window.open(whatsappURL, "_blank");
+          alert(
+            "Redirecting to WhatsApp. Please send the message to complete your order!"
+          );
+        }
+      });
+    </script>
+  </body>
+</html>

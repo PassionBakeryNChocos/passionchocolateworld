@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PassionBakeryNChocos</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Diphylleia&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Diphylleia&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* ========================================
+   CSS VARIABLES & ROOT CONFIGURATION
+   ======================================== */
+      :root {
+        --primary-bg: #ffb6c1;
+        --primary-text: #11124a;
+        --section-bg: #7e5dae;
+        --about-contact-bg: #75a9d1;
+        --button-bg: #0f1048;
+        --button-hover-bg: #d9537c;
+        --active-nav-bg: #872657;
+        --active-nav-text: #fff8dc;
+        --hover-nav-text: floralwhite;
+        --gold: #ffd700;
+        --white: #ffffff;
+        --footer-bg: #0000ff;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        --border-radius: 20px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background-color: var(--primary-bg);
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        overflow-x: hidden;
+        max-width: 100vw;
+      }
+
+      h1,
+      h2 {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: clamp(1.8rem, 5vw, 3.5rem);
+        text-align: center;
+        margin-bottom: 15px;
+        font-family: "Great Vibes", cursive;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      p {
+        font-weight: bolder;
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        line-height: 1.6;
+        font-family: "Delius", cursive;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* ========================================
+   NAVIGATION BAR
+   ======================================== */
+      .topnav {
+        overflow: hidden;
+        background-color: var(--primary-bg);
+        font-family: "Delius", cursive;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+
+      .topnav a,
+      .topnav .cart-icon {
+        float: left;
+        display: block;
+        color: var(--primary-text);
+        text-align: center;
+        padding: 16px 24px;
+        font-weight: bold;
+        text-decoration: none;
+        font-size: clamp(0.9rem, 2.5vw, 1.25rem);
+        border-radius: 12px;
+        margin: 8px 6px;
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .topnav a:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: var(--transition);
+      }
+
+      .topnav a:hover:before {
+        left: 100%;
+      }
+
+      .topnav a:hover,
+      .topnav .cart-icon:hover {
+        background-color: var(--button-hover-bg);
+        color: var(--hover-nav-text);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(217, 83, 124, 0.3);
+      }
+
+      .topnav .cart-icon:hover {
+        transform: translateY(-2px) rotate(5deg);
+      }
+
+      .topnav a.active {
+        background-color: var(--active-nav-bg);
+        color: var(--active-nav-text);
+        box-shadow: 0 4px 15px rgba(135, 38, 87, 0.3);
+        transform: scale(1.05);
+      }
+
+      .topnav .icon {
+        display: none;
+      }
+
+      /* Border Images */
+      .border-image {
+        width: min(70%, 600px);
+        height: auto;
+        margin: 20px auto;
+        display: block;
+        animation: imageFloat 6s ease-in-out infinite;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) brightness(1.1)
+          contrast(1.1);
+      }
+
+      @keyframes imageFloat {
+        0%,
+        100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      /* ========================================
+   FORM CONTAINER
+   ======================================== */
+      .container {
+        max-width: 800px;
+        width: 90%;
+        padding: clamp(40px, 6vw, 60px) clamp(30px, 5vw, 50px);
+        margin: 40px auto;
+        background-color: var(--section-bg);
+        color: floralwhite;
+        border-radius: 24px;
+        box-shadow: 0 20px 60px rgba(126, 93, 174, 0.4);
+        backdrop-filter: blur(10px);
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--gold), #ffa500, var(--gold));
+        animation: shimmer 3s infinite;
+      }
+
+      @keyframes shimmer {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.6;
+        }
+      }
+
+      /* Form Title */
+      h2 {
+        color: var(--gold);
+        font-weight: bold;
+        font-size: clamp(2rem, 6vw, 3.5rem);
+        text-align: center;
+        margin-bottom: 30px;
+        font-family: "Great Vibes", cursive;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+          0 0 30px rgba(255, 215, 0, 0.4);
+        animation: titleGlow 3s ease-in-out infinite alternate;
+        position: relative;
+        padding-bottom: 20px;
+      }
+
+      h2::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        border-radius: 2px;
+      }
+
+      @keyframes titleGlow {
+        from {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        to {
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+            0 0 30px rgba(255, 215, 0, 0.6);
+        }
+      }
+
+      /* ========================================
+   MESSAGE SECTION
+   ======================================== */
+      .message-section {
+        text-align: center;
+        padding: 40px 20px;
+        animation: fadeInUp 0.8s ease-out;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .icon-wrapper {
+        margin-bottom: 30px;
+        animation: bounceIn 1s ease-out;
+      }
+
+      .icon-wrapper i {
+        font-size: clamp(4rem, 10vw, 6rem);
+        color: var(--gold);
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.4),
+          0 0 40px rgba(255, 215, 0, 0.2);
+        animation: pulse 2s ease-in-out infinite;
+      }
+
+      @keyframes bounceIn {
+        0% {
+          transform: scale(0);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.4));
+        }
+        50% {
+          transform: scale(1.05);
+          filter: drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+        }
+      }
+
+      .message-section h3 {
+        color: var(--gold);
+        font-size: clamp(1.8rem, 5vw, 2.5rem);
+        font-family: "Great Vibes", cursive;
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        animation: fadeInUp 0.8s ease-out 0.2s backwards;
+      }
+
+      .main-message {
+        font-size: clamp(1.1rem, 3vw, 1.3rem);
+        font-family: "Delius", cursive;
+        color: white;
+        margin-bottom: 15px;
+        line-height: 1.8;
+        animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        font-weight: bold;
+      }
+
+      .sub-message {
+        font-size: clamp(1rem, 2.5vw, 1.2rem);
+        font-family: "Delius", cursive;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 35px;
+        font-style: italic;
+        animation: fadeInUp 0.8s ease-out 0.4s backwards;
+        font-weight: 600;
+      }
+
+      /* ========================================
+   CONTACT PROMPT SECTION
+   ======================================== */
+      .contact-prompt {
+        margin-top: 40px;
+        padding: 30px 25px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        animation: fadeInUp 0.8s ease-out 0.5s backwards;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      }
+
+      .contact-prompt p {
+        font-size: clamp(1rem, 2.5vw, 1.1rem);
+        font-family: "Delius", cursive;
+        color: white;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      /* ========================================
+   WHATSAPP BUTTON
+   ======================================== */
+      .whatsapp-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+        color: white;
+        padding: 16px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-family: "Delius", cursive;
+        font-weight: bold;
+        font-size: clamp(1rem, 2.5vw, 1.1rem);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        position: relative;
+        overflow: hidden;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .whatsapp-button::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s ease, height 0.6s ease;
+      }
+
+      .whatsapp-button:hover::before {
+        width: 400px;
+        height: 400px;
+      }
+
+      .whatsapp-button:hover {
+        background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
+        transform: translateY(-5px) scale(1.05);
+        box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+        border-color: var(--gold);
+      }
+
+      .whatsapp-button:active {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
+      }
+
+      .whatsapp-button i {
+        font-size: 1.4em;
+        transition: transform 0.3s ease;
+      }
+
+      .whatsapp-button:hover i {
+        transform: rotate(15deg) scale(1.1);
+        animation: iconShake 0.5s ease-in-out;
+      }
+
+      @keyframes iconShake {
+        0%,
+        100% {
+          transform: rotate(15deg) scale(1.1);
+        }
+        25% {
+          transform: rotate(20deg) scale(1.15);
+        }
+        75% {
+          transform: rotate(10deg) scale(1.05);
+        }
+      }
+
+      /* ========================================
+   FOOTER
+   ======================================== */
+      .business-footer {
+        background: var(--section-bg);
+        color: floralwhite;
+        padding: clamp(40px, 6vw, 60px) clamp(15px, 4vw, 20px)
+          clamp(20px, 3vw, 30px);
+        font-family: "Delius", cursive;
+        border-top: 4px solid var(--gold);
+        box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.2);
+        margin-top: 30px;
+      }
+
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: clamp(25px, 5vw, 40px);
+      }
+
+      .footer-section {
+        flex: 1 1 280px;
+        min-width: 250px;
+      }
+
+      .footer-section h3 {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        color: var(--gold);
+        margin-bottom: 20px;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      .footer-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        line-height: 1.6;
+        color: floralwhite;
+        margin-bottom: 15px;
+        font-family: "Delius", cursive;
+      }
+
+      .footer-section ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .footer-section ul li {
+        padding: 10px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        transition: var(--transition);
+        font-family: "Delius", cursive;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .footer-section ul li:hover {
+        padding-left: 15px;
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .footer-section a {
+        color: floralwhite;
+        text-decoration: none;
+        transition: var(--transition);
+        font-family: "Delius", cursive;
+      }
+
+      .footer-section a:hover {
+        color: var(--gold);
+        text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+      }
+
+      .contact-info-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        font-family: "Delius", cursive;
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+      }
+
+      .contact-info-item i {
+        width: 25px;
+        margin-right: 12px;
+        color: var(--gold);
+        font-size: 1.1rem;
+      }
+
+      .social-footer-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .social-footer-links a {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(
+          45deg,
+          var(--button-bg),
+          var(--active-nav-bg)
+        );
+        border-radius: 50%;
+        text-align: center;
+        line-height: 45px;
+        transition: var(--transition);
+        border: 2px solid rgba(255, 215, 0, 0.3);
+        box-shadow: 0 4px 15px rgba(15, 16, 72, 0.3);
+      }
+
+      .social-footer-links a:hover {
+        background: linear-gradient(45deg, var(--button-hover-bg), #ff7b82);
+        color: var(--button-bg);
+        transform: translateY(-3px) scale(1.1);
+        box-shadow: 0 8px 25px rgba(217, 83, 124, 0.4);
+        border-color: var(--gold);
+      }
+
+      .footer-logo-img {
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 15px;
+        border-radius: 15px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        transition: var(--transition);
+      }
+
+      .footer-logo-img:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+      }
+
+      .footer-bottom-section {
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 2px solid rgba(255, 215, 0, 0.3);
+        text-align: center;
+      }
+
+      .footer-bottom-section p {
+        font-size: clamp(0.9rem, 2.5vw, 1rem);
+        color: var(--gold);
+        font-family: "Delius", cursive;
+        font-weight: bold;
+      }
+
+      /* ========================================
+   RESPONSIVE MEDIA QUERIES
+   ======================================== */
+      @media screen and (max-width: 768px) {
+        .topnav {
+          padding: 0 5px;
+          position: relative;
+          min-height: 50px;
+        }
+
+        .topnav a:not(.active):not(.cart-icon):not(.icon) {
+          display: none;
+          clear: both;
+          width: 100%;
+        }
+
+        .topnav a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        .topnav .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .topnav a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          display: block !important;
+          margin: 8px 3px;
+          padding: 12px 14px;
+          font-size: 1.2rem;
+          color: var(--primary-text);
+          background: rgba(255, 255, 255, 0.2);
+        }
+
+        .topnav a {
+          margin: 5px 3px;
+          padding: 12px 14px;
+          font-size: 0.9rem;
+        }
+
+        .topnav.responsive {
+          position: relative;
+        }
+
+        .topnav.responsive a.active {
+          float: left;
+          margin: 8px 3px;
+          padding: 12px 14px;
+        }
+
+        .topnav.responsive .cart-icon {
+          position: absolute !important;
+          top: 0;
+          right: 55px;
+          float: none;
+          margin: 8px 3px;
+        }
+
+        .topnav.responsive a.icon {
+          position: absolute !important;
+          top: 0;
+          right: 5px;
+          float: none;
+          color: var(--gold);
+          background: linear-gradient(
+            45deg,
+            var(--active-nav-bg),
+            var(--button-hover-bg)
+          );
+          margin: 8px 3px;
+        }
+
+        .topnav.responsive a:not(.active):not(.icon):not(.cart-icon) {
+          display: block;
+          float: none;
+          text-align: left;
+          width: 100%;
+          clear: both;
+          margin: 5px 10px;
+        }
+
+        .topnav.responsive
+          a:not(.active):not(.icon):not(.cart-icon):first-of-type {
+          padding-top: 0;
+          margin-top: 50px;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 25px;
+        }
+
+        .footer-section {
+          text-align: center;
+          min-width: auto;
+        }
+
+        .social-footer-links {
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          margin: 20px 10px;
+          padding: 30px 20px;
+          border-radius: 18px;
+        }
+
+        .message-section {
+          padding: 30px 15px;
+        }
+
+        .contact-prompt {
+          padding: 20px 15px;
+        }
+
+        h2 {
+          font-size: 1.8rem;
+          margin-bottom: 20px;
+        }
+
+        .icon-wrapper i {
+          font-size: 3.5rem;
+        }
+
+        .whatsapp-button {
+          padding: 14px 24px;
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navigation Bar -->
+    <div class="topnav" id="myTopnav">
+      <a href="Gift.html">Home</a>
+      <a href="Products_gifts.html">Products</a>
+      <a href="Gift.html">About Me</a>
+      <a href="Gift.html">Reviews</a>
+      <a href="Gift.html">Contact Us</a>
+      <a href="special_order_gifts.html" class="active">Special Order</a>
+
+      <a href="Cart_gifts.html" class="cart-icon">
+        <i class="fa fa-shopping-cart"></i>
+        <span class="cart-count" id="cart-count">(0)</span>
+      </a>
+
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <div class="container">
+      <h2>Special Gift Order</h2>
+
+      <div class="message-section">
+        <div class="icon-wrapper">
+          <i class="fa fa-gift"></i>
+        </div>
+        <h3>Coming Soon!</h3>
+        <p class="main-message">
+          This feature is not available at this moment, but will be added soon.
+        </p>
+        <p class="sub-message">Check back to know the latest updates.</p>
+        <div class="contact-prompt">
+          <p>For immediate special gift orders, please contact us:</p>
+          <a
+            href="https://wa.me/919869153017"
+            class="whatsapp-button"
+            target="_blank"
+          >
+            <i class="fa fa-whatsapp"></i>
+            Contact via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <img src="border top.png" class="border-image" />
+    <img src="border bottom.png" class="border-image" />
+
+    <!-- Professional Business Footer -->
+    <footer class="business-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <img
+            src="Logo.jpg"
+            alt="PassionBakeryNChocos Logo"
+            class="footer-logo-img"
+          />
+          <h3>PassionBakeryNChocos</h3>
+          <p>
+            Crafting sweet memories with every bite. We specialize in custom
+            cakes, homemade chocolates, and unique gift items made with pure
+            vegetarian ingredients in the most hygienic environment.
+          </p>
+          <div class="social-footer-links">
+            <a href="https://www.facebook.com" target="_blank" title="Facebook"
+              ><i class="fa fa-facebook"></i
+            ></a>
+            <a
+              href="https://www.instagram.com"
+              target="_blank"
+              title="Instagram"
+              ><i class="fa fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/919869153017"
+              target="_blank"
+              title="WhatsApp"
+              ><i class="fa fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://in.pinterest.com/"
+              target="_blank"
+              title="Pinterest"
+              ><i class="fa fa-pinterest"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="Products_cakes.html">Cakes Collection</a></li>
+            <li><a href="index.html">Homemade Chocolates</a></li>
+            <li><a href="Gift.html">Gift Items</a></li>
+            <li><a href="special_order_cake.html">Special Orders</a></li>
+            <li><a href="Cart_cake.html">Shopping Cart</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Our Specialties</h3>
+          <ul>
+            <li>Custom Birthday Cakes</li>
+            <li>Wedding & Anniversary Cakes</li>
+            <li>Festival Special Treats</li>
+            <li>Corporate Gifts & Bulk Orders</li>
+            <li>Homemade Chocolates</li>
+            <li>Personalized Gift Hampers</li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>Get In Touch</h3>
+          <div class="contact-info-item">
+            <i class="fa fa-envelope"></i>
+            <span>manjupathak135@gmail.com</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-phone"></i>
+            <span>+91 9869153017</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-clock-o"></i>
+            <span>Available: 9AM - 8PM Daily</span>
+          </div>
+          <div class="contact-info-item">
+            <i class="fa fa-map-marker"></i>
+            <span>Mumbai, Maharashtra, India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom-section">
+        <p>
+          &copy; 2024 PassionBakeryNChocos. All rights reserved. Made with love
+          for sweet celebrations!
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      // ========================================
+      // NAVIGATION BAR FUNCTIONALITY
+      // ========================================
+
+      /**
+       * Toggle responsive navigation menu for mobile devices
+       * Adds/removes 'responsive' class to show/hide navigation items
+       */
+      function myFunction() {
+        const nav = document.getElementById("myTopnav");
+        nav.className =
+          nav.className === "topnav" ? "topnav responsive" : "topnav";
+      }
+
+      // ========================================
+      // CART COUNT DISPLAY
+      // ========================================
+
+      /**
+       * Update cart count badge from localStorage
+       * Runs immediately on page load
+       */
+      (function updateCartCount() {
+        const cartData = JSON.parse(localStorage.getItem("CakecartData")) || {};
+        const cartCount = Object.values(cartData).reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        const cartCountElement = document.getElementById("cart-count");
+        if (cartCountElement) {
+          cartCountElement.textContent = `(${cartCount})`;
+        }
+      })();
+
+      // ========================================
+      // PAGE INITIALIZATION
+      // ========================================
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Log page load for debugging purposes
+        console.log("Special Gift Order page loaded successfully");
+
+        // Add smooth scrolling to all links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            if (target) {
+              target.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        });
+
+        // Optional: Add animation observer for elements as they come into view
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("fade-in-visible");
+            }
+          });
+        }, observerOptions);
+
+        // Observe message section for animations
+        const messageSection = document.querySelector(".message-section");
+        if (messageSection) {
+          observer.observe(messageSection);
+        }
+      });
+    </script>
+  </body>
+</html>
